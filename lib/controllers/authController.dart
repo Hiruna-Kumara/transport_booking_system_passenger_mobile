@@ -142,7 +142,7 @@ class AuthController {
         endingDestination: "Jaffna",
         startingDateTime: '10 May - 8.00am',
         endingDateTime: '10 May - 5.00pm',
-        seatPrice: 'LKR 1700',
+        seatPrice: 1700,
         busSeatDetails: busSeatDetails.sublist(0,49),
       ),
       BusTripData(
@@ -153,7 +153,7 @@ class AuthController {
         endingDestination: "Jaffna",
         startingDateTime: '10 May - 11.00am',
         endingDateTime: '10 May - 8.00pm',
-        seatPrice: 'LKR 1500',
+        seatPrice: 1500,
         busSeatDetails: busSeatDetails.sublist(0,30),
       ),
       BusTripData(
@@ -164,7 +164,7 @@ class AuthController {
         endingDestination: "Jaffna",
         startingDateTime: '10 May - 5.00pm',
         endingDateTime: '11 May - 2.00am',
-        seatPrice: 'LKR 1000',
+        seatPrice: 1000,
         busSeatDetails: busSeatDetails,
       ),
       BusTripData(
@@ -175,7 +175,7 @@ class AuthController {
         endingDestination: "Jaffna",
         startingDateTime: '10 May - 10.00pm',
         endingDateTime: '11 May - 7.00am',
-        seatPrice: 'LKR 1000',
+        seatPrice: 1000,
         busSeatDetails: busSeatDetails.sublist(0,44),
       ),
     ];

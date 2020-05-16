@@ -80,7 +80,7 @@ class BusDetailTile extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text('Seat Price - ${busTripData.seatPrice}'),
+            Text('Seat Price - LKR ${busTripData.seatPrice}'),
             SizedBox(
               height: 10,
             ),
@@ -98,6 +98,7 @@ class BusDetailTile extends StatelessWidget {
                   color: Colors.green[900],
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusLayoutWrapper(
+                      seatPrice: busTripData.seatPrice,
                       busType: busTripData.busType, 
                       busSeatDetails: busTripData.busSeatDetails
                     )));   

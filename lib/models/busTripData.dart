@@ -8,7 +8,7 @@ class BusTripData {
   String endingDestination;
   String startingDateTime;
   String endingDateTime;
-  String seatPrice;
+  int seatPrice;
   List<BusSeat> busSeatDetails;
 
   BusTripData({

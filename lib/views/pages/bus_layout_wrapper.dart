@@ -7,9 +7,10 @@ import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layout
 import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layouts/bus_layout4.dart';
 
 class BusLayoutWrapper extends StatefulWidget {
+  final int seatPrice;
   final String busType;
   final List<BusSeat>  busSeatDetails;
-  BusLayoutWrapper({this.busType,this.busSeatDetails});
+  BusLayoutWrapper({this.seatPrice, this.busType,this.busSeatDetails});
 
   @override
   _BusLayoutWrapperState createState() => _BusLayoutWrapperState();
@@ -107,13 +108,37 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5)
                     ),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusBook(
-                      count: count, 
-                      selectedSeatNumbers: selectedSeatNumbers
-                    ))); 
-                      print (count);
-                      print (selectedSeatNumbers);
+                    onPressed: () async {
+                      if (count < 5) {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusBook(
+                          count: count, 
+                          selectedSeatNumbers: selectedSeatNumbers,
+                          busType: widget.busType,
+                          seatPrice: widget.seatPrice,
+                        )));
+                      } else {
+                        final result = await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text('You can book maximum 4 seats'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(
+                                    color: Colors.green[700],
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                        return result;
+                      }
                     },
                   ),
                 ),

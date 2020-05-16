@@ -34,6 +34,7 @@ class _SingleBusSeatState extends State<SingleBusSeat> {
           borderRadius: BorderRadius.circular(5)
         ),
         onPressed: () async {
+          print (widget.count);
           if (widget.busSeatDetails[widget.index].booked) {
             final result = await showDialog(
               context: context,
@@ -57,7 +58,7 @@ class _SingleBusSeatState extends State<SingleBusSeat> {
             );
             return result;
           } else {
-            setState(() {
+            setState(() async {
               pressAttention = !pressAttention;
               if (pressAttention) {
                 widget.callBackIncrease(widget.index+1);
