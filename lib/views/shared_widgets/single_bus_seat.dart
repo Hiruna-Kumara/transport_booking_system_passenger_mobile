@@ -4,7 +4,11 @@ import 'package:transport_booking_system_passenger_mobile/models/busSeat.dart';
 class SingleBusSeat extends StatefulWidget {
   final int index;
   final List<BusSeat> busSeatDetails;
-  SingleBusSeat({this.index, this.busSeatDetails});
+  final int count;
+  final List<int> selectedSeatNumbers;
+  final Function(int) callBackIncrease;
+  final Function(int) callBackDecrease;
+  SingleBusSeat({this.index, this.busSeatDetails, this.count, this.selectedSeatNumbers, this.callBackIncrease, this.callBackDecrease});
 
   @override
   _SingleBusSeatState createState() => _SingleBusSeatState();
@@ -53,7 +57,14 @@ class _SingleBusSeatState extends State<SingleBusSeat> {
             );
             return result;
           } else {
-            setState(() => pressAttention = !pressAttention);
+            setState(() {
+              pressAttention = !pressAttention;
+              if (pressAttention) {
+                widget.callBackIncrease(widget.index+1);
+              } else {
+                widget.callBackDecrease(widget.index+1);
+              }
+            });   
           }
         }, 
       ),

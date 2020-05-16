@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:transport_booking_system_passenger_mobile/models/busSeat.dart';
+import 'package:transport_booking_system_passenger_mobile/views/pages/bus_book.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layouts/bus_layout1.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layouts/bus_layout2.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layouts/bus_layout3.dart';
@@ -15,26 +16,43 @@ class BusLayoutWrapper extends StatefulWidget {
 }
 
 class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
+  int count = 0;
+  List<int> selectedSeatNumbers = [];
+
+  callBackIncrease(seatNumber) {
+    setState(() {
+      count = count + 1;
+      selectedSeatNumbers.add(seatNumber);
+    });
+  }
+
+  callBackDecrease(seatNumber) {
+    setState(() {
+      count = count - 1;
+      selectedSeatNumbers.remove(seatNumber);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
       Widget layout; // return the layout according to the type of the bus
       if (widget.busType == "Type1"){
-        layout = BusLayout1(busSeatDetails: widget.busSeatDetails);
+        layout = BusLayout1(busSeatDetails: widget.busSeatDetails, count: count, selectedSeatNumbers: selectedSeatNumbers, callBackIncrease: callBackIncrease, callBackDecrease: callBackDecrease);
       }
       if (widget.busType == "Type2"){
-        layout = BusLayout2(busSeatDetails: widget.busSeatDetails);
+        layout = BusLayout2(busSeatDetails: widget.busSeatDetails, count: count, selectedSeatNumbers: selectedSeatNumbers, callBackIncrease: callBackIncrease, callBackDecrease: callBackDecrease);
       }
       if (widget.busType == "Type3"){
-        layout = BusLayout3(busSeatDetails: widget.busSeatDetails);
+        layout = BusLayout3(busSeatDetails: widget.busSeatDetails, count: count, selectedSeatNumbers: selectedSeatNumbers, callBackIncrease: callBackIncrease, callBackDecrease: callBackDecrease);
       }
       if (widget.busType == "Type4"){
-        layout = BusLayout4(busSeatDetails: widget.busSeatDetails);
+        layout = BusLayout4(busSeatDetails: widget.busSeatDetails, count: count, selectedSeatNumbers: selectedSeatNumbers, callBackIncrease: callBackIncrease, callBackDecrease: callBackDecrease);
       }
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green[900],
           title: Text(
-            'Seat Bookings',
+            'Book Bus',
             style: TextStyle(
               color: Colors.white
             ),
@@ -90,7 +108,12 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
                       borderRadius: BorderRadius.circular(5)
                     ),
                     onPressed: () {
-
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusBook(
+                      count: count, 
+                      selectedSeatNumbers: selectedSeatNumbers
+                    ))); 
+                      print (count);
+                      print (selectedSeatNumbers);
                     },
                   ),
                 ),

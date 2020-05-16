@@ -3,8 +3,12 @@ import 'package:transport_booking_system_passenger_mobile/models/busSeat.dart';
 import 'package:transport_booking_system_passenger_mobile/views/shared_widgets/single_bus_seat.dart';
 
 class BusLayout4 extends StatefulWidget {
+  final int count;
+  final List<int> selectedSeatNumbers;
+  final Function(int) callBackIncrease;
+  final Function(int) callBackDecrease;
   final List<BusSeat> busSeatDetails;
-  BusLayout4({this.busSeatDetails});
+  BusLayout4({this.busSeatDetails, this.count, this.selectedSeatNumbers, this.callBackIncrease, this.callBackDecrease});
 
   @override
   _BusLayout4State createState() => _BusLayout4State();
@@ -46,12 +50,12 @@ class _BusLayout4State extends State<BusLayout4> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(flex:1,child: SingleBusSeat(index: index, busSeatDetails: widget.busSeatDetails)),
-        Expanded(flex:1,child: SingleBusSeat(index: index+1, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+1, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
         Expanded(flex:1,child: SizedBox()),
         Expanded(flex:1,child: SizedBox()),
-        Expanded(flex:1,child: SingleBusSeat(index: index+2, busSeatDetails: widget.busSeatDetails)),
-        Expanded(flex:1,child: SingleBusSeat(index: index+3, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+2, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+3, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
       ],
     );
   }
@@ -65,8 +69,8 @@ class _BusLayout4State extends State<BusLayout4> {
         Expanded(flex:1,child: SizedBox()),
         Expanded(flex:1,child: SizedBox()),
         Expanded(flex:1,child: SizedBox()),
-        Expanded(flex:1,child: SingleBusSeat(index: index, busSeatDetails: widget.busSeatDetails)),
-        Expanded(flex:1,child: SingleBusSeat(index: index+1, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+1, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
       ],
     );
   }
@@ -76,12 +80,12 @@ class _BusLayout4State extends State<BusLayout4> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(flex:1,child: SingleBusSeat(index: index, busSeatDetails: widget.busSeatDetails)),
-        Expanded(flex:1,child: SingleBusSeat(index: index+1, busSeatDetails: widget.busSeatDetails)),
-        Expanded(flex:1,child: SingleBusSeat(index: index+2, busSeatDetails: widget.busSeatDetails)),
-        Expanded(flex:1,child: SingleBusSeat(index: index+3, busSeatDetails: widget.busSeatDetails)),
-        Expanded(flex:1,child: SingleBusSeat(index: index+4, busSeatDetails: widget.busSeatDetails)),
-        Expanded(flex:1,child: SingleBusSeat(index: index+5, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+1, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+2, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+3, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+4, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+5, busSeatDetails: widget.busSeatDetails, count: widget.count, callBackIncrease: widget.callBackIncrease, callBackDecrease: widget.callBackDecrease)),
       ],
     );
   }
