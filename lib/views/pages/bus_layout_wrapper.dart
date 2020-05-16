@@ -42,7 +42,10 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
         ),
         body: Column(
           children: <Widget>[
-            Menu(),
+            Expanded(
+              flex: 1,
+              child: Menu()
+            ),
             Expanded(
               flex: 1,
               child: Container(
@@ -68,6 +71,56 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
               flex: 8,
               child: layout,
             ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.all(10.0),
+                child: Center(
+                  child: FlatButton(
+                    child: Text(
+                      "Book Now",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    color: Colors.green[900],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)
+                    ),
+                    onPressed: () {
+
+                    },
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.all(10.0),
+                child: Center(
+                  child: FlatButton(
+                    child: Text(
+                      "Add To Waiting List",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    color: Colors.green[900],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)
+                    ),
+                    onPressed: () {
+                      // Navigate to 'add to waiting list' page
+                    },
+                  ),
+                )
+              ),
+            ),
           ],
         ),
       );
@@ -77,61 +130,108 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
 class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Row(
+    return Container(
+      margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
+      child: Column(
         children: <Widget>[
           Expanded(
-            flex: 3,
-            child: Container(
-              decoration: BoxDecoration( 
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: Colors.green[500], 
-              ),
-              margin: EdgeInsets.fromLTRB(30.0,20.0,0,10),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              padding: EdgeInsets.all(10.0),
-              margin: EdgeInsets.fromLTRB(0,10.0,20.0,0),
-              child: Text(
-                'Booked', 
-                textAlign: TextAlign.left, 
-                style: TextStyle(
-                  fontSize: 15.0
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    decoration: BoxDecoration( 
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: Colors.green[500], 
+                    ),
+                    margin: EdgeInsets.fromLTRB(20.0,0.0,20.0,0),
+                  ),
                 ),
-              )
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    decoration: BoxDecoration( 
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: Colors.amber[400], 
+                    ),
+                    margin: EdgeInsets.fromLTRB(20.0,0.0,20.0,0),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    decoration: BoxDecoration( 
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: Colors.grey[700], 
+                    ),
+                    margin: EdgeInsets.fromLTRB(20.0,0.0,20.0,0),
+                  ),
+                ),
+              ],
             ),
           ),
           Expanded(
             flex: 1,
-            child: SizedBox(),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              decoration: BoxDecoration( 
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: Colors.amber[400], 
-              ),
-              margin: EdgeInsets.fromLTRB(25,20.0,5,10),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              margin: EdgeInsets.fromLTRB(0,10.0,20,0),
-              child: Text(
-                'Available', 
-                textAlign: TextAlign.left, 
-                style: TextStyle(
-                  fontSize: 15.0
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    child: Text(
+                      'Booked', 
+                      textAlign: TextAlign.center, 
+                      style: TextStyle(
+                        fontSize: 15.0
+                      ),
+                    )
+                  ),
                 ),
-              )
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    child: Text(
+                      'Available', 
+                      textAlign: TextAlign.center, 
+                      style: TextStyle(
+                        fontSize: 15.0
+                      ),
+                    )
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    child: Text(
+                      'Selected', 
+                      textAlign: TextAlign.center, 
+                      style: TextStyle(
+                        fontSize: 15.0
+                      ),
+                    )
+                  ),
+                ),
+              ],
             ),
-          ),
+          )
         ],
       ),
     );

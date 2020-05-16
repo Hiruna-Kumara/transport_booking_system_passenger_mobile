@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:transport_booking_system_passenger_mobile/models/busSeat.dart';
+import 'package:transport_booking_system_passenger_mobile/views/shared_widgets/single_bus_seat.dart';
 
 class BusLayout3 extends StatefulWidget {
   final List<BusSeat> busSeatDetails;
@@ -45,12 +46,12 @@ class _BusLayout3State extends State<BusLayout3> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(flex:1,child: busSeat(context, index)),
-        Expanded(flex:1,child: busSeat(context, index+1)),
+        Expanded(flex:1,child: SingleBusSeat(index: index, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+1, busSeatDetails: widget.busSeatDetails)),
         Expanded(flex:1,child: SizedBox()),
-        Expanded(flex:1,child: busSeat(context, index+2)),
-        Expanded(flex:1,child: busSeat(context, index+3)),
-        Expanded(flex:1,child: busSeat(context, index+4)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+2, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+3, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+4, busSeatDetails: widget.busSeatDetails)),
       ],
     );
   }
@@ -63,9 +64,9 @@ class _BusLayout3State extends State<BusLayout3> {
         Expanded(flex:1,child: SizedBox()),
         Expanded(flex:1,child: SizedBox()),
         Expanded(flex:1,child: SizedBox()),
-        Expanded(flex:1,child: busSeat(context, index)),
-        Expanded(flex:1,child: busSeat(context, index+1)),
-        Expanded(flex:1,child: busSeat(context, index+2)),
+        Expanded(flex:1,child: SingleBusSeat(index: index, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+1, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+2, busSeatDetails: widget.busSeatDetails)),
       ],
     );
   }
@@ -75,32 +76,13 @@ class _BusLayout3State extends State<BusLayout3> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(flex:1,child: busSeat(context, index)),
-        Expanded(flex:1,child: busSeat(context, index+1)),
-        Expanded(flex:1,child: busSeat(context, index+2)),
-        Expanded(flex:1,child: busSeat(context, index+3)),
-        Expanded(flex:1,child: busSeat(context, index+4)),
-        Expanded(flex:1,child: busSeat(context, index+5)),
+        Expanded(flex:1,child: SingleBusSeat(index: index, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+1, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+2, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+3, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+4, busSeatDetails: widget.busSeatDetails)),
+        Expanded(flex:1,child: SingleBusSeat(index: index+5, busSeatDetails: widget.busSeatDetails)),
       ],
-    );
-  }
-
-  Widget busSeat(BuildContext context, int index) {
-    return Container(
-      margin:EdgeInsets.symmetric(horizontal:10.0,vertical: 5.0),
-      child: FlatButton(
-        child: Center(
-          child: Text(
-            widget.busSeatDetails[index].seatID,
-            style: TextStyle(color: Colors.grey[900]),
-          ),
-        ),
-        color: widget.busSeatDetails[index].booked? Colors.green[500] : Colors.amber[400],
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5)
-        ),
-        onPressed: () async {},
-      ),
     );
   }
 }
