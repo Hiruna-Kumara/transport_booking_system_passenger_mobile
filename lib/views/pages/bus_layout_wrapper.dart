@@ -19,6 +19,15 @@ class BusLayoutWrapper extends StatefulWidget {
 class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
   int count = 0;
   List<int> selectedSeatNumbers = [];
+  int availableSeats = 0;
+
+  countAvailableSeats() {
+    for(var i=0; i<widget.busSeatDetails.length;i++){
+      if (!widget.busSeatDetails[i].booked) {
+        availableSeats = availableSeats + 1;
+      }
+    }
+  }
 
   callBackIncrease(seatNumber) {
     setState(() {
@@ -32,6 +41,12 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
       count = count - 1;
       selectedSeatNumbers.remove(seatNumber);
     });
+  }
+
+  @override
+  void initState() {
+    countAvailableSeats();
+    super.initState();
   }
 
   @override
@@ -109,13 +124,35 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
                       borderRadius: BorderRadius.circular(5)
                     ),
                     onPressed: () async {
-                      if (count < 5) {
+                      if (count < 5 && count > 0) {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusBook(
                           count: count, 
                           selectedSeatNumbers: selectedSeatNumbers,
                           busType: widget.busType,
                           seatPrice: widget.seatPrice,
                         )));
+                      } else if (count == 0) {
+                        final result = await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text('You should book at least one seat'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(
+                                    color: Colors.green[700],
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                        return result;
                       } else {
                         final result = await showDialog(
                           context: context,
@@ -144,7 +181,8 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
                 ),
               ),
             ),
-            Expanded(
+            // show 'add to waiting list' only if less than 4 seats are available
+            availableSeats > 3 ? SizedBox(height: 20) : Expanded(
               flex: 1,
               child: Container(
                 width: double.infinity,
