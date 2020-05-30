@@ -1,31 +1,26 @@
+import 'package:transport_booking_system_passenger_mobile/models/busSeat.dart';
+
 class BusTripData {
-  String tripId;
-  String departureTime;
-  String startStation;
-  String arrivalTime;
-  String endStation;
-  int normalSeatPrice;
+  String busNumber;
   String busType;
+  String routeNumber;
+  String startingDestination;
+  String endingDestination;
+  String startingDateTime;
+  String endingDateTime;
+  int seatPrice;
+  List<BusSeat> busSeatDetails;
 
   BusTripData({
-    this.tripId, 
-    this.departureTime,
-    this.startStation,
-    this.arrivalTime,
-    this.endStation,
-    this.normalSeatPrice,
-    this.busType
+    this.busNumber, 
+    this.busType, 
+    this.routeNumber,
+    this.startingDestination,
+    this.endingDestination,
+    this.startingDateTime,
+    this.endingDateTime,
+    this.seatPrice,
+    this.busSeatDetails
   });
 
-  factory BusTripData.fromJson(Map<String,dynamic> trip)  {
-    return BusTripData(
-      tripId: trip['turnId'],
-      departureTime: trip['departureTime'],
-      startStation: trip['startStation'], 
-      arrivalTime: trip['arrivalTime'],
-      endStation: trip['endStation'],
-      normalSeatPrice: trip['NormalSeatPrice'],
-      busType: trip['busType'],
-    );
-  }
 }

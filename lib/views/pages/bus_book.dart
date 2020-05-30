@@ -5,8 +5,8 @@ class BusBook extends StatefulWidget {
   final int count;
   final List<int> selectedSeatNumbers;
   final String busType;
-  final int totalPrice;
-  BusBook({this.count, this.selectedSeatNumbers, this.busType, this.totalPrice});
+  final int seatPrice;
+  BusBook({this.count, this.selectedSeatNumbers, this.busType, this.seatPrice});
 
   @override
   _BusBookState createState() => _BusBookState();
@@ -21,6 +21,7 @@ class _BusBookState extends State<BusBook> {
 
   @override
   Widget build(BuildContext context) {
+    int totalAmount = widget.seatPrice * widget.count;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green[900],
@@ -63,7 +64,7 @@ class _BusBookState extends State<BusBook> {
                   style: TextStyle(fontSize: 20.0),
                 ),
                 subtitle: Text(
-                  "LKR ${widget.totalPrice}",
+                  "LKR $totalAmount",
                   style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
                 ),
               ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/auth.dart';
 import 'package:transport_booking_system_passenger_mobile/views/shared_widgets/page_widget.dart';
-import 'package:transport_booking_system_passenger_mobile/views/pages/route_details.dart';
+import 'package:transport_booking_system_passenger_mobile/views/pages/bus_details.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,13 +12,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   SharedPreferences sharedPreferences;
   String uid;
-  String token;
   bool _isLoading = true;
   final _formKey = GlobalKey<FormState>();
 
   String startingDestination = '';
   String endingDestination = '';
-  String journeyDate = DateTime.now().toString();
+  String journeyDate = '';
 
   DateTime selectedDate = DateTime.now();
 
@@ -32,7 +31,6 @@ class _HomeState extends State<Home> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
-        journeyDate = selectedDate.toString();
       });
   }
 
@@ -53,7 +51,6 @@ class _HomeState extends State<Home> {
         _isLoading = true;
       });
       uid = sharedPreferences.getString("uid");
-      token = sharedPreferences.getString("token");
       print(uid);
       setState(() {
         _isLoading = false;
@@ -154,16 +151,11 @@ class _HomeState extends State<Home> {
                             fontSize: 18.0,
                           ),
                         ),
-                        color: Colors.green[700],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)
-                        ),
+                        color: Colors.green[900],
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => RouteDetails(
-                                uid: uid,
-                                token: token,
+                              builder: (context) => BusDetails(
                                 startingDestination: startingDestination,
                                 endingDestination: endingDestination,
                                 journeyDate: journeyDate,
