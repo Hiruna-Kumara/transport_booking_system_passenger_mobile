@@ -1,7 +1,9 @@
 // import 'package:flutter/material.dart';
 // import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 // import 'package:transport_booking_system_passenger_mobile/models/CurrentBookings.dart';
+// import 'package:transport_booking_system_passenger_mobile/models/busTripData.dart';
 // import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layout_wrapper.dart';
+
 
 // class CurrentBookings extends StatefulWidget {
 //   final String startingDestination;
@@ -16,7 +18,7 @@
 // class _CurrentBookingsState extends State<CurrentBookings> {
 //   final AuthController _auth = AuthController();
 //   List<CurrentBookings> busDetails;
-
+  
 //   @override
 //   void initState() {
 //     busDetails = _auth.getBusTripDetails(
