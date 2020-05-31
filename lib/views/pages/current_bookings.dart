@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 import 'package:transport_booking_system_passenger_mobile/models/CurrentBookings.dart';
@@ -8,11 +9,26 @@ class CurrentBookings extends StatefulWidget {
   final String endingDestination;
   final String journeyDate;
   CurrentBookings({this.startingDestination, this.endingDestination, this.journeyDate, String uid});
+=======
+// import 'package:flutter/material.dart';
+// import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
+// import 'package:transport_booking_system_passenger_mobile/models/CurrentBookings.dart';
+// import 'package:transport_booking_system_passenger_mobile/models/busTripData.dart';
+// import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layout_wrapper.dart';
+
+
+// class CurrentBookings extends StatefulWidget {
+//   final String startingDestination;
+//   final String endingDestination;
+//   final String journeyDate;
+//   CurrentBookings({this.startingDestination, this.endingDestination, this.journeyDate, String uid});
+>>>>>>> parent of 62e4c68... Revert "Merge branch 'master' of https://github.com/Hiruna-Kumara/transport_booking_system_passenger_mobile"
 
   @override
   _CurrentBookingsState createState() => _CurrentBookingsState();
 }
 
+<<<<<<< HEAD
 class _CurrentBookingsState extends State<CurrentBookings> {
   final AuthController _auth = AuthController();
   List<CurrentBookings> busDetails;
@@ -24,6 +40,19 @@ class _CurrentBookingsState extends State<CurrentBookings> {
     ).data; // get the list of bus details
     super.initState();
   }
+=======
+// class _CurrentBookingsState extends State<CurrentBookings> {
+//   final AuthController _auth = AuthController();
+//   List<CurrentBookings> busDetails;
+  
+//   @override
+//   void initState() {
+//     busDetails = _auth.getBusTripDetails(
+//       widget.startingDestination, widget.endingDestination, widget.journeyDate
+//     ).data; // get the list of bus details
+//     super.initState();
+//   }
+>>>>>>> parent of 62e4c68... Revert "Merge branch 'master' of https://github.com/Hiruna-Kumara/transport_booking_system_passenger_mobile"
 
   @override
   Widget build(BuildContext context) {
