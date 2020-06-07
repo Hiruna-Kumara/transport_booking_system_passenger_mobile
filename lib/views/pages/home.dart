@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/auth.dart';
+import 'package:transport_booking_system_passenger_mobile/views/pages/getTurnByRouteID.dart';
 import 'package:transport_booking_system_passenger_mobile/views/shared_widgets/page_widget.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/route_details.dart';
 
@@ -68,6 +69,22 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.green[900],
         title: PageTitleHomePage(),
         actions: <Widget>[
+          FlatButton(
+            child: Text(
+              "Find route",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
+            ),
+            onPressed: () {
+              sharedPreferences.clear();
+              // shoule make changes to shared preference
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => GetTurnByRouteID())
+              );
+            },
+          ),
           FlatButton(
             child: Text(
               "Log Out",
