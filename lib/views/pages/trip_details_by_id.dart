@@ -53,7 +53,9 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
 
   @override
   Widget build(BuildContext context) {
+    // print(routeDetails.length);
     return Scaffold(
+      
       appBar: AppBar(
           backgroundColor: Colors.green[900],
           title: Text(
@@ -103,7 +105,7 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
                 )
               :
               // routeDetails[0].length
-              0 == 0
+              routeDetails.length == 0
                   ? Center(
                       child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
@@ -120,7 +122,7 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
                       shrinkWrap: true,
                       itemCount: routeDetails.length,
                       itemBuilder: (context, index) {
-                        // return FullRouteDetailTile(uid: widget.uid, token: widget.token, fullRouteData: routeDetails[index]);
+                        // return PartialRouteDetailTile(uid: widget.uid, token: widget.token, fullRouteData: routeDetails[index]);
                         return;
                       }),
     );
@@ -223,7 +225,7 @@ class PartialRouteDetailTile extends StatelessWidget {
   }
 }
 
-// class RoutesDropdown  {
+// class RoutesDropdownDisplay extends State<TripDetailsById> {
 //   final AuthController _auth = AuthController();
 //   APIResponse<List<RouteDataGetById>> _apiResponse;
 //   List<RouteDataGetById> routeDetails;
@@ -252,5 +254,11 @@ class PartialRouteDetailTile extends StatelessWidget {
 //     print(_apiResponse.data);
 //     print(_apiResponse.error);
 //     print(_apiResponse.errorMessage);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // TODO: implement build
+//     throw UnimplementedError();
 //   }
 // }

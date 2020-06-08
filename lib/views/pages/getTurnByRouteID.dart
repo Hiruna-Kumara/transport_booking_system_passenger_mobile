@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
+import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
+import 'package:transport_booking_system_passenger_mobile/models/routesDropdown.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/trip_details_by_id.dart';
 // import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 // import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
@@ -16,10 +19,8 @@ class GetTurnByRouteID extends StatefulWidget {
   // final String endingDestination;
   // final String journeyDate;
   // RouteDetails({this.uid, this.token, this.startingDestination, this.endingDestination, this.journeyDate});
-  GetTurnByRouteID(
-    
-  );
-  
+  GetTurnByRouteID();
+
   @override
   _GetTurnByRouteIDState createState() => _GetTurnByRouteIDState();
 }
@@ -30,7 +31,14 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   DateTime selectedDate = DateTime.now();
   String routeId;
   String journeyDate = DateTime.now().toString();
-
+  bool _isLoading;
+  String errorMessage;
+  APIResponse<List<RoutesDropdown>> _apiResponse;
+  final AuthController _auth = AuthController();
+  List<RoutesDropdown> dropdownDetails;
+  List<String> dropdownList = [];
+  String holder;
+  String dropdownValue;
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -45,9 +53,44 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   }
 
   @override
+  void initState() {
+    _fetchRouteDropdown();
+    super.initState();
+  }
+
+  _fetchRouteDropdown() async {
+    setState(() {
+      _isLoading = true;
+    });
+    _apiResponse = await _auth.routesDropdownDisplay();
+    setState(() {
+      _isLoading = false;
+      if (_apiResponse.error) {
+        errorMessage = _apiResponse.errorMessage;
+      } else {
+        dropdownDetails = _apiResponse.data;
+      }
+    });
+    print('success dropdown');
+    print(_apiResponse.data);
+    print(_apiResponse.error);
+    print(_apiResponse.errorMessage);
+    print('${dropdownDetails[0].id}');
+    for (var i = 0; i < dropdownDetails.length; i++) {
+      dropdownList.add('${dropdownDetails[i].id}');
+    }
+  }
+
+  void getDropDownItem() {
+    setState(() {
+      holder = dropdownValue;
+    });
+  }
+
+  // final RoutesDropdown routesDropdown=dropdownDetails;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         backgroundColor: Colors.green[900],
         title: PageTitleHomePage(),
@@ -94,35 +137,43 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
               key: _formKey,
               child: Column(
                 children: <Widget>[
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: "routeId",
-                      labelStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    validator: (val) =>
-                        val.isEmpty ? 'Enter starting destination' : null,
-                    onChanged: (val) {
-                      setState(() => routeId = val);
-                    },
-                  ),
+                  // TextFormField(
+                  //   decoration: InputDecoration(
+                  //     labelText: "routeId",
+                  //     labelStyle: TextStyle(
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: 20,
+                  //     ),
+                  //   ),
+                  //   validator: (val) =>
+                  //       val.isEmpty ? 'Enter starting destination' : null,
+                  //   onChanged: (val) {
+                  //     setState(() => routeId = val);
+                  //   },
+                  // ),
                   SizedBox(
                     height: 20,
                   ),
                   new DropdownButton<String>(
-  items: <String>['A', 'B', 'C', 'D'].map((String value) {
-    return new DropdownMenuItem<String>(
-      value: value,
-      child: new Text(value),
-    );
-  }).toList(),
-  onChanged: (_) {},
-),
-SizedBox(
-height: 40,
-),
+                    value: dropdownValue,
+                    // items: <String>['${dropdownDetails[0].id}', 'B', 'C', 'D'].map((String value) {
+                    items: dropdownList.map((String value) {
+                      
+                      // items:dropdownList{
+                      return new DropdownMenuItem<String>(
+                        value: value,
+                        child: new Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String data) {
+                      setState(() {
+                        dropdownValue = data;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
                   // Container(
                   //   alignment: Alignment(0, 0),
                   //   child: TextFormField(
@@ -143,19 +194,19 @@ height: 40,
                   // SizedBox(
                   //   height: 20,
                   // ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      RaisedButton(
-                        onPressed: () => _selectDate(context),
-                        child: Text('Select date'),
-                      ),
-                      Text("${selectedDate.toLocal()}".split(' ')[0]),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //   children: <Widget>[
+                  //     RaisedButton(
+                  //       onPressed: () => _selectDate(context),
+                  //       child: Text('Select date'),
+                  //     ),
+                  //     Text("${selectedDate.toLocal()}".split(' ')[0]),
+                  //     SizedBox(
+                  //       height: 20.0,
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -171,17 +222,20 @@ height: 40,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         onPressed: () {
+                          print("below value");
+                          print(dropdownValue);
+                          print("upper value");
                           if (_formKey.currentState.validate()) {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => TripDetailsById(
-                                // uid: uid,
-                                // token: token,
-                                // startingDestination: startingDestination,
-                                // endingDestination: endingDestination,
-                                // journeyDate: journeyDate,
-                                routeId:routeId,
-                              )
-                            ));
+                                builder: (context) => TripDetailsById(
+                                      // uid: uid,
+                                      // token: token,
+                                      // startingDestination: startingDestination,
+                                      // endingDestination: endingDestination,
+                                      // journeyDate: journeyDate,
+
+                                      routeId: dropdownValue,
+                                    )));
                           }
                         },
                       ),

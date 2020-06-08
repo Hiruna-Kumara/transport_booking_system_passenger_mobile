@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
 import 'package:transport_booking_system_passenger_mobile/models/routeDataGetById.dart';
+import 'package:transport_booking_system_passenger_mobile/models/routesDropdown.dart';
 import 'package:transport_booking_system_passenger_mobile/models/userData.dart';
 import 'package:transport_booking_system_passenger_mobile/constants.dart';
 import 'package:transport_booking_system_passenger_mobile/models/newUserRegister.dart';
@@ -153,7 +156,8 @@ class AuthController {
         Map<String, dynamic> data = jsonDecode(response.body);
         for (var i = 0; i < data["turns"].length; i++) {
           partialRoute.add(RouteDataGetById.fromJson(data["turns"][i]));
-
+          // print("printing partial");
+// print (partialRoute);
           // fullRoute.add(partialRoute);
           // partialRoute = [];
         }
@@ -177,7 +181,72 @@ class AuthController {
       return APIResponse<List<RouteDataGetById>>(
           error: true, errorMessage: 'An error occured');
     }).catchError((error) => APIResponse<List<RouteDataGetById>>(
-            error: true, errorMessage: 'An error occured'));
+            error: true, errorMessage: 'An error occured catch'));
+  }
+
+  Future<APIResponse<List<RoutesDropdown>>> routesDropdownDisplay() async {
+    // get the current and upcoming active turns assigned to the conductor
+    // String url = Constants.SERVER;
+    String url =
+        "https://us-central1-transport-booking-system-62ea6.cloudfunctions.net/app/api";
+    // List<List<RouteDataGetById>> fullRoute = [];
+    List<RoutesDropdown> partialRoute = [];
+    print('getTurnbyId');
+    // print (date);
+    final response= await http.get('$url/getallroutes',headers: {HttpHeaders.authorizationHeader: "Basic your_api_token_here"},);
+            
+     if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        for (var i = 0; i < data["routes"].length; i++) {
+          partialRoute.add(RoutesDropdown.fromJson(data["routes"][i]));
+
+          // fullRoute.add(partialRoute);
+          // partialRoute = [];
+        }
+        return APIResponse<List<RoutesDropdown>>(data: partialRoute);
+      }else{
+        final error = jsonDecode(response.body);
+        return APIResponse<List<RoutesDropdown>>(
+            error: true, errorMessage: error['error']);
+      }
+            
+
+            // final responseJson = json.decode(response.body);
+
+  // return APIResponse<List<RoutesDropdown>>;z
+            
+        // .then((response) {
+
+      // if (response.statusCode == 200) {
+      //   Map<String, dynamic> data = jsonDecode(response.body);
+      //   for (var i = 0; i < data["turns"].length; i++) {
+      //     partialRoute.add(RouteDataGetById.fromJson(data["turns"][i]));
+
+      //     // fullRoute.add(partialRoute);
+      //     // partialRoute = [];
+      //   }
+      //   return APIResponse<List<RouteDataGetById>>(data: partialRoute);
+      // }
+      // if (response.statusCode == 400) {
+      //   final error = jsonDecode(response.body);
+      //   return APIResponse<List<RouteDataGetById>>(
+      //       error: true, errorMessage: error['error']);
+      // }
+      // if (response.statusCode == 404) {
+      //   final error = jsonDecode(response.body);
+      //   return APIResponse<List<RouteDataGetById>>(
+      //       error: true, errorMessage: error['message']);
+      // }
+      // if (response.statusCode == 422) {
+      //   final error = jsonDecode(response.body);
+      //   return APIResponse<List<RouteDataGetById>>(
+      //       error: true, errorMessage: error['error']);
+      // }
+      // return APIResponse<List<RouteDataGetById>>(
+          // error: true, errorMessage: 'An error occured');
+          
+    // }).catchError((error) => APIResponse<List<RouteDataGetById>>(
+    //         error: true, errorMessage: 'An error occured'));
   }
 
   Future<APIResponse<List<BusTripData>>> getTurns(String routeId) async {
