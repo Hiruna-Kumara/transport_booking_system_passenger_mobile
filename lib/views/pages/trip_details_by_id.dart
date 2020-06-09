@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
 import 'package:transport_booking_system_passenger_mobile/models/route.dart';
@@ -40,6 +41,7 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
     setState(() {
       _isLoading = false;
       if (_apiResponse.error) {
+        print("error   **");
         errorMessage = _apiResponse.errorMessage;
       } else {
         routeDetails = _apiResponse.data;
@@ -55,7 +57,6 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
   Widget build(BuildContext context) {
     // print(routeDetails.length);
     return Scaffold(
-      
       appBar: AppBar(
           backgroundColor: Colors.green[900],
           title: Text(
@@ -122,8 +123,11 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
                       shrinkWrap: true,
                       itemCount: routeDetails.length,
                       itemBuilder: (context, index) {
-                        // return PartialRouteDetailTile(uid: widget.uid, token: widget.token, fullRouteData: routeDetails[index]);
-                        return;
+                        return PartialRouteDetailTile(
+                            uid: widget.uid,
+                            token: widget.token,
+                            route: routeDetails[index]);
+                        // return;
                       }),
     );
   }
@@ -145,8 +149,9 @@ class FullRouteDetailTile extends StatelessWidget {
           physics: ClampingScrollPhysics(),
           itemCount: fullRouteData.length,
           itemBuilder: (context, index) {
-            // return PartialRouteDetailTile(uid: uid, token: token, route: fullRouteData[index]);
-            return;
+            return PartialRouteDetailTile(
+                uid: uid, token: token, route: fullRouteData[index]);
+            // return;
           }),
     );
   }
@@ -155,11 +160,23 @@ class FullRouteDetailTile extends StatelessWidget {
 class PartialRouteDetailTile extends StatelessWidget {
   final String uid;
   final String token;
-  final RouteData route;
+  final RouteDataGetById route;
   PartialRouteDetailTile({this.uid, this.token, this.route});
 
+  // final String a='';
+
+  final formatter = new DateFormat('yyyy-MM-dd');
+  final String formatted = '';
   @override
   Widget build(BuildContext context) {
+    // String a='${route.departureTime}';
+
+    // print (DateUtil().formattedDate(DateTime.parse('${route.departureTime}').toLocal()));
+
+    // var b= DateUtil().formattedDate(DateTime.parse(a));
+    // print (b.hour);
+    // print(a+"  time");
+
     return SingleChildScrollView(
       child: Card(
         color: Colors.grey[200],
@@ -168,60 +185,133 @@ class PartialRouteDetailTile extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: <Widget>[
-              Text('Route Name - ${route.routeName}'),
+              Text('Starting Station - ${route.startStation}'),
               SizedBox(
                 height: 10,
               ),
-              Text('Short Name - ${route.shortName}'),
+              Text('End Station - ${route.endStation}'),
               SizedBox(
                 height: 10,
               ),
-              Text('Departure Stop - ${route.departureStop}'),
+              // Text('Departure Time - ${route.departureTime}'),
+              Text('Departure Time - ' +
+                  DateUtil().formattedDate(
+                      DateTime.parse('${route.departureTime}').toLocal()) +
+                  "  " +
+                  TimeUtil().formattedDate(
+                      DateTime.parse('${route.departureTime}').toLocal())),
+// Text('Departure Time - '+TimeUtil().formattedDate(DateTime.parse('${route.departureTime}').toLocal())),
+              // print (DateUtil().formattedDate(DateTime.parse('${route.departureTime}').toLocal()));
+
+              // var now = new DateTime.now();
+
+              // formatted = formatter.format('${route.departureTime.toString()}');
+              // formatted ="${route.departureTime.toString()}-${today.month.toString().padLeft(2,'0')}-${today.day.toString().padLeft(2,'0')}";
+
+              // print(formatted); // something like 2013-04-20
+
               SizedBox(
                 height: 10,
               ),
-              Text('Arrival Stop - ${route.arrivalStop}'),
+              // Text('Arrival Time - ${route.arrivalTime}'),
+              Text('Arrival Time - ' +
+                  DateUtil().formattedDate(
+                      DateTime.parse('${route.arrivalTime}').toLocal()) +
+                  "  " +
+                  TimeUtil().formattedDate(
+                      DateTime.parse('${route.arrivalTime}').toLocal())),
               SizedBox(
                 height: 10,
               ),
-              Text('Status - ${route.status}'),
-              route.routeId == null
-                  ? SizedBox(
-                      height: 10,
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
-                        FlatButton(
-                          child: Text(
-                            "Show Turn Details",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                            ),
-                          ),
-                          color: Colors.green[700],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)),
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => TripDetails(
-                                    uid: uid,
-                                    token: token,
-                                    routeId: route.routeId)));
-                            // show turn details
-                          },
-                        ),
-                      ],
+              Text('Normal Seat Price- ${route.normalSeatPrice}'),
+              SizedBox(
+                height: 10,
+              ),
+              Text('Bus Type - ${route.busType}'),
+              SizedBox(
+                height: 10,
+              ),
+              // Text('Status - ${route.status}'),
+              // route.routeId == null
+              //     ? SizedBox(
+              //         height: 10,
+              //       )
+              //     : Column(
+              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //         children: <Widget>[
+              //           SizedBox(
+              //             height: 10,
+              //           ),
+              //           FlatButton(
+              //             child: Text(
+              //               "Show Turn Details",
+              //               style: TextStyle(
+              //                 color: Colors.white,
+              //                 fontSize: 18.0,
+              //               ),
+              //             ),
+              //             color: Colors.green[700],
+              //             shape: RoundedRectangleBorder(
+              //                 borderRadius: BorderRadius.circular(5)),
+              //             onPressed: () {
+              //               Navigator.of(context).push(MaterialPageRoute(
+              //                   builder: (context) => TripDetails(
+              //                       uid: uid,
+              //                       token: token,
+              //                       routeId: route.routeId)));
+              //               // show turn details
+              //             },
+              //           ),
+              //         ],
+              //       ),
+              '${route.turnId}' == null? SizedBox(
+                height: 10,
+              ) : Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FlatButton(
+                    child: Text(
+                      "Show Turn Details",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                      ),
                     ),
+                    color: Colors.green[700],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripDetails(uid: uid, token: token, routeId: route.turnId)));
+                      // show turn details
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class DateUtil {
+  static const DATE_FORMAT = 'dd/MM/yyyy';
+  String formattedDate(DateTime dateTime) {
+    print('dateTime ($dateTime)');
+    return DateFormat(DATE_FORMAT).format(dateTime);
+  }
+}
+
+class TimeUtil {
+  static const TIME_FORMAT = 'HH:mm: a';
+  String formattedDate(DateTime dateTime) {
+    print('dateTime ($dateTime)');
+    return DateFormat(TIME_FORMAT).format(dateTime);
   }
 }
 

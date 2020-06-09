@@ -4,7 +4,7 @@ class RouteDataGetById {
   String startStation;
   String arrivalTime;
   String endStation;
-  String normalSeatPrice;
+  int normalSeatPrice;
   String busType;
   // dynamic routeId;
 

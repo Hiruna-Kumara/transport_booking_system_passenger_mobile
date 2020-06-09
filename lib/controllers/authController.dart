@@ -102,6 +102,7 @@ class AuthController {
         Map<String, dynamic> data = jsonDecode(response.body);
         for (var i = 0; i < data["routes"]["steps"].length; i++) {
           for (var j = 0; j < data["routes"]["steps"][i].length; j++) {
+            print (data["routes"]["steps"][i][j]);
             partialRoute.add(RouteData.fromJson(data["routes"]["steps"][i][j]));
           }
           fullRoute.add(partialRoute);
@@ -137,7 +138,7 @@ class AuthController {
     String url =
         "https://us-central1-transport-booking-system-62ea6.cloudfunctions.net/app/api";
     // List<List<RouteDataGetById>> fullRoute = [];
-    List<RouteDataGetById> partialRoute = [];
+    List<RouteDataGetById> partialRoutes = [];
     print('getTurnbyId');
     // print (date);
     return http
@@ -152,17 +153,26 @@ class AuthController {
               'routeId': routeId,
             }))
         .then((response) {
+          print("a");
       if (response.statusCode == 200) {
+        print('b');
         Map<String, dynamic> data = jsonDecode(response.body);
+        print('c');
+        print(data['turns']);
         for (var i = 0; i < data["turns"].length; i++) {
-          partialRoute.add(RouteDataGetById.fromJson(data["turns"][i]));
+          print('d');
+          print(data['turns'][i]);
+          partialRoutes.add(RouteDataGetById.fromJson(data['turns'][i]));
+          print('e');
           // print("printing partial");
 // print (partialRoute);
           // fullRoute.add(partialRoute);
           // partialRoute = [];
         }
-        return APIResponse<List<RouteDataGetById>>(data: partialRoute);
+        print('f');
+        return APIResponse<List<RouteDataGetById>>(data: partialRoutes);
       }
+      print('200 passed');
       if (response.statusCode == 400) {
         final error = jsonDecode(response.body);
         return APIResponse<List<RouteDataGetById>>(
