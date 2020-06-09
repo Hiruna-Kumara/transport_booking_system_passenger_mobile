@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
 import 'package:transport_booking_system_passenger_mobile/models/busTripData.dart';
-import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layout_wrapper.dart';
 import 'package:intl/intl.dart';
+import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layout_wrapper.dart';
 
 class TripDetails extends StatefulWidget {
   final String uid;
   final String token;
   final String routeId;
-  TripDetails({this.uid, this.token, this.routeId});
+  final String startingDestination;
+  final String endingDestination;
+  TripDetails({this.uid, this.token, this.routeId,  this.startingDestination, this.endingDestination});
 
   @override
   _TripDetailsState createState() => _TripDetailsState();
@@ -71,7 +73,13 @@ class _TripDetailsState extends State<TripDetails> {
         ListView.builder(
           itemCount: trips.length,
           itemBuilder: (context, index) {
-            return TripTile(uid:widget.uid, token:widget.token, trip: trips[index]);
+            return TripTile(
+              uid:widget.uid, 
+              token:widget.token, 
+              trip: trips[index],
+              startingDestination: widget.startingDestination,
+              endingDestination: widget.endingDestination,
+            );
           }
         ),
       ),
@@ -83,7 +91,9 @@ class TripTile extends StatelessWidget {
   final String uid;
   final String token;
   final BusTripData trip;
-  TripTile({this.uid, this.token, this.trip});
+  final String startingDestination;
+  final String endingDestination;
+  TripTile({this.uid, this.token, this.trip, this.startingDestination, this.endingDestination});
 
   _formatDateTime(String dateTime) {
     DateTime dt = DateTime.parse(dateTime);
@@ -107,9 +117,9 @@ class TripTile extends StatelessWidget {
               color: Colors.grey[700],
             ),
             title: Text(
-                  '${trip.startStation} to ${trip.endStation}',
-                  style: TextStyle(fontSize: 20.0),
-                ),
+              '${trip.startStation} to ${trip.endStation}',
+              style: TextStyle(fontSize: 20.0),
+            ),
           ),
           ListTile(
             title: Text(
@@ -151,7 +161,7 @@ class TripTile extends StatelessWidget {
               style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
             ),
           ),
-          FlatButton.icon( // to view the bookings of the current trip
+          FlatButton.icon( 
             label: Text(
               'View Bookings',
               style: TextStyle(fontSize: 20.0),
@@ -166,9 +176,11 @@ class TripTile extends StatelessWidget {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => BusLayoutWrapper(
                   uid: uid, token: token, 
-                  tripId: trip.tripId, 
                   seatPrice: trip.normalSeatPrice, 
-                  busType: trip.busType
+                  busType: trip.busType,
+                  startingDestination: startingDestination,
+                  endingDestination: endingDestination,
+                  trip: trip,
                 )
               ));   
             },

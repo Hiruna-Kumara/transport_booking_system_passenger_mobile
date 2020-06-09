@@ -109,7 +109,11 @@ class _RouteDetailsState extends State<RouteDetails> {
         shrinkWrap: true,
         itemCount: routeDetails.length,
         itemBuilder: (context, index) {
-          return FullRouteDetailTile(uid: widget.uid, token: widget.token, fullRouteData: routeDetails[index]);
+          return FullRouteDetailTile(
+            uid: widget.uid, 
+            token: widget.token, 
+            fullRouteData: routeDetails[index],
+          );
         }
       ),
     );
@@ -132,7 +136,11 @@ class FullRouteDetailTile extends StatelessWidget {
         physics: ClampingScrollPhysics(),
         itemCount: fullRouteData.length,
         itemBuilder: (context, index) {
-          return PartialRouteDetailTile(uid: uid, token: token, route: fullRouteData[index]);
+          return PartialRouteDetailTile(
+            uid: uid, 
+            token: token, 
+            route: fullRouteData[index],
+          );
         }
       ),
     );
@@ -193,7 +201,15 @@ class PartialRouteDetailTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5)
                     ),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripDetails(uid: uid, token: token, routeId: route.routeId)));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => 
+                        TripDetails(
+                          uid: uid, 
+                          token: token, 
+                          routeId: route.routeId,
+                          startingDestination: route.departureStop,
+                          endingDestination: route.arrivalStop,
+                        )
+                      ));
                       // show turn details
                     },
                   ),
