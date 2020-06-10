@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
 import 'package:transport_booking_system_passenger_mobile/models/routesDropdown.dart';
+import 'package:transport_booking_system_passenger_mobile/views/pages/home.dart';
+import 'package:transport_booking_system_passenger_mobile/views/pages/route_details.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/trip_details_by_id.dart';
 // import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 // import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
@@ -32,6 +34,7 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   String routeId;
   String journeyDate = DateTime.now().toString();
   bool _isLoading;
+  bool _isLoadingLogged=true;
   String errorMessage;
   APIResponse<List<RoutesDropdown>> _apiResponse;
   final AuthController _auth = AuthController();
@@ -39,6 +42,10 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   List<String> dropdownList = [];
   String holder;
   String dropdownValue;
+
+  String uid;
+  String token;
+
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -54,8 +61,13 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
 
   @override
   void initState() {
-    _fetchRouteDropdown();
+    checkLoginStatus();
+    // _isLoadingLogged:
+    // _fetchRouteDropdown();
     super.initState();
+    
+    
+    
   }
 
   _fetchRouteDropdown() async {
@@ -80,6 +92,26 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
       dropdownList.add('${dropdownDetails[i].id}');
     }
   }
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString("token") == null) {
+      print("no shared");
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => LoginPage()
+      )); // if user is not logged in navigate to sign in page
+    } else {
+      setState(() {
+        _isLoadingLogged = true;
+      });
+      uid = sharedPreferences.getString("uid");
+      token = sharedPreferences.getString("token");
+      print(uid+"   uid in search by route");
+      setState(() {
+        _isLoadingLogged = false;
+      });
+    }
+  }
+  
 
   void getDropDownItem() {
     setState(() {
@@ -90,10 +122,18 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   // final RoutesDropdown routesDropdown=dropdownDetails;
   @override
   Widget build(BuildContext context) {
+    // return _isLoading ? Center(child: CircularProgressIndicator()) : Scaffold(
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+    icon: Icon(Icons.arrow_back, color: Colors.white),
+    // onPressed: () => Navigator.of(context).pop(),
+     onPressed: () =>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()))
+  ), 
+  title: PageTitleHomePage(),
+  centerTitle: true,
         backgroundColor: Colors.green[900],
-        title: PageTitleHomePage(),
+        // title: PageTitleHomePage(),
         actions: <Widget>[
           //   FlatButton(
           //     child: Text(
@@ -120,7 +160,7 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
               ),
             ),
             onPressed: () {
-              sharedPreferences.clear();
+              // sharedPreferences.clear();
               // shoule make changes to shared preference
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => LoginPage()));
@@ -128,7 +168,8 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body:_isLoadingLogged ? Center(child: CircularProgressIndicator()) : SingleChildScrollView(
+      // body: SingleChildScrollView(
         child: Card(
           margin: EdgeInsets.all(15.0),
           child: Padding(
