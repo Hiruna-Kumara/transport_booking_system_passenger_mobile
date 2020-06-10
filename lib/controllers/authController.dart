@@ -12,6 +12,8 @@ import 'package:transport_booking_system_passenger_mobile/models/busSeat.dart';
 import 'package:transport_booking_system_passenger_mobile/models/busTripData.dart';
 import 'package:transport_booking_system_passenger_mobile/models/route.dart';
 
+import 'package:transport_booking_system_passenger_mobile/models/busBookingData.dart';
+
 class AuthController {
   Future<APIResponse<String>> registerPassenger(
       NewUserRegister newUserModel) async {
@@ -403,14 +405,19 @@ Future<APIResponse<String>> addToWaitingList(String uid, String token, String tr
             },
             body: jsonEncode(<String, String>{
               'turnId': tripId,
+              
             }))
         .then((response) {
+          print("11");
       if (response.statusCode == 200) {
+        print("1");
         Map<String, dynamic> data = jsonDecode(response.body);
         for (var i = 0; i < data["seats"].length; i++) {
+          print("2");
           seatBookings.add(BusSeat.fromJson(data["seats"][i]));
         }
         for (var i = 0; i < seatBookings.length; i++) {
+          print("3");
           for (var j = 0; j < seatBookings.length; j++) {
             if (int.parse(seatBookings[j].seatID) == i + 1) {
               orderedSeatBookings.add(seatBookings[j]);
@@ -421,14 +428,16 @@ Future<APIResponse<String>> addToWaitingList(String uid, String token, String tr
         return APIResponse<List<BusSeat>>(data: orderedSeatBookings);
       }
       if (response.statusCode == 400) {
+        print("4");
         final error = jsonDecode(response.body);
         return APIResponse<List<BusSeat>>(
             error: true, errorMessage: error['error']);
       }
+      print("5");
       return APIResponse<List<BusSeat>>(
-          error: true, errorMessage: 'An error occured');
+          error: true, errorMessage: 'An error occured 1');
     }).catchError((error) => APIResponse<List<BusSeat>>(
-            error: true, errorMessage: 'An error occured'));
+            error: true, errorMessage: 'An error occured 2'));
   }
 
   Future<APIResponse<String>> bookSeats(
@@ -488,4 +497,68 @@ Future<APIResponse<String>> addToWaitingList(String uid, String token, String tr
         return APIResponse<double>(error: true, errorMessage: 'An error occured');
       });
   }
+
+
+Future<APIResponse<List<BusBookingData>>> getActiveBookings(String uid, String loginToken) async {
+    // get the current and upcoming active turns assigned to the conductor
+    String url = Constants.SERVER;
+    String token = loginToken;
+    List<BusBookingData> activeBookings = [];
+    return http.get(
+      '$url/getactivebookings/$uid',
+
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    ).then ((response) {
+      if(response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        for(var i=0; i<data["turns"].length;i++){
+          activeBookings.add(BusBookingData.fromJson(data["turns"][i]));
+        }
+        return APIResponse<List<BusBookingData>>(data: activeBookings);
+      } 
+      if(response.statusCode == 400) {
+        final error = jsonDecode(response.body);
+        return APIResponse<List<BusBookingData>>(error: true, errorMessage: error['error']);
+      }
+      return APIResponse<List<BusBookingData>>(error: true, errorMessage: 'An error occured');
+    }).
+    catchError((error) {
+      return APIResponse<List<BusBookingData>>(error: true, errorMessage: 'An error occured');
+    });
+  }
+
+  Future<APIResponse<List<BusBookingData>>> getPastBookings(String uid, String loginToken) async {
+    // get the current and upcoming active turns assigned to the conductor
+    String url = Constants.SERVER;
+    String token = loginToken;
+    List<BusBookingData> activeBookings = [];
+    return http.get(
+      '$url/getpastbookings/$uid',
+
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    ).then ((response) {
+      if(response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        for(var i=0; i<data["turns"].length;i++){
+          activeBookings.add(BusBookingData.fromJson(data["turns"][i]));
+        }
+        return APIResponse<List<BusBookingData>>(data: activeBookings);
+      } 
+      if(response.statusCode == 400) {
+        final error = jsonDecode(response.body);
+        return APIResponse<List<BusBookingData>>(error: true, errorMessage: error['error']);
+      }
+      return APIResponse<List<BusBookingData>>(error: true, errorMessage: 'An error occured');
+    }).
+    catchError((error) {
+      return APIResponse<List<BusBookingData>>(error: true, errorMessage: 'An error occured');
+    });
+  }
+  
 }

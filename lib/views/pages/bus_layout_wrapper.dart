@@ -74,12 +74,17 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
   _fetchSeatDetails() async {
     setState(() { _isLoading = true; });
     // get seat details of the particular trip
+    print("12");
     _apiResponse = await _auth.getBookings(widget.uid, widget.token, widget.trip.tripId);
+    print(widget.trip.tripId);
+    print("13");
     setState(() { 
       if (_apiResponse.error){
+        print("13");
         _isLoading = false; 
         errorMessage = _apiResponse.errorMessage;
       } else {
+        print("14");
         _isLoading = false; 
         busSeatDetails = _apiResponse.data;
         countAvailableSeats();
