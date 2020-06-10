@@ -62,8 +62,8 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   @override
   void initState() {
     checkLoginStatus();
-    // _isLoadingLogged:
-    // _fetchRouteDropdown();
+    _isLoadingLogged:
+    _fetchRouteDropdown();
     super.initState();
     
     
@@ -168,7 +168,7 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
           ),
         ],
       ),
-      body:_isLoadingLogged ? Center(child: CircularProgressIndicator()) : SingleChildScrollView(
+      body:_isLoading ? Center(child: CircularProgressIndicator()) : SingleChildScrollView(
       // body: SingleChildScrollView(
         child: Card(
           margin: EdgeInsets.all(15.0),

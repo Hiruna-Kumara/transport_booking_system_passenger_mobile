@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             onPressed: () {
-              sharedPreferences.clear();
+              // sharedPreferences.clear();
               // shoule make changes to shared preference
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => GetTurnByRouteID())
