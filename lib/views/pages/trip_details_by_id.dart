@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
-import 'package:transport_booking_system_passenger_mobile/models/route.dart';
+// import 'package:transport_booking_system_passenger_mobile/models/route.dart';
 import 'package:transport_booking_system_passenger_mobile/models/routeDataGetById.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/trip_details.dart';
 

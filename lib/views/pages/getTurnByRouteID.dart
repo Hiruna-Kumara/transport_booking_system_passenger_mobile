@@ -4,7 +4,7 @@ import 'package:transport_booking_system_passenger_mobile/controllers/authContro
 import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
 import 'package:transport_booking_system_passenger_mobile/models/routesDropdown.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/home.dart';
-import 'package:transport_booking_system_passenger_mobile/views/pages/route_details.dart';
+// import 'package:transport_booking_system_passenger_mobile/views/pages/route_details.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/trip_details_by_id.dart';
 // import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 // import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
@@ -34,7 +34,7 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   String routeId;
   String journeyDate = DateTime.now().toString();
   bool _isLoading;
-  bool _isLoadingLogged=true;
+  // bool _isLoadingLogged=true;
   String errorMessage;
   APIResponse<List<RoutesDropdown>> _apiResponse;
   final AuthController _auth = AuthController();
@@ -46,23 +46,23 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   String uid;
   String token;
 
-  Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-        journeyDate = selectedDate.toString();
-      });
-  }
+  // Future<Null> _selectDate(BuildContext context) async {
+  //   final DateTime picked = await showDatePicker(
+  //       context: context,
+  //       initialDate: selectedDate,
+  //       firstDate: DateTime(2015, 8),
+  //       lastDate: DateTime(2101));
+  //   if (picked != null && picked != selectedDate)
+  //     setState(() {
+  //       selectedDate = picked;
+  //       journeyDate = selectedDate.toString();
+  //     });
+  // }
 
   @override
   void initState() {
     checkLoginStatus();
-    _isLoadingLogged:
+    // _isLoadingLogged:
     _fetchRouteDropdown();
     super.initState();
     
@@ -100,15 +100,15 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
         builder: (context) => LoginPage()
       )); // if user is not logged in navigate to sign in page
     } else {
-      setState(() {
-        _isLoadingLogged = true;
-      });
+      // setState(() {
+      //   _isLoadingLogged = true;
+      // });
       uid = sharedPreferences.getString("uid");
       token = sharedPreferences.getString("token");
       print(uid+"   uid in search by route");
-      setState(() {
-        _isLoadingLogged = false;
-      });
+      // setState(() {
+      //   _isLoadingLogged = false;
+      // });
     }
   }
   
@@ -160,7 +160,7 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
               ),
             ),
             onPressed: () {
-              // sharedPreferences.clear();
+              sharedPreferences.clear();
               // shoule make changes to shared preference
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => LoginPage()));

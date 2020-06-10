@@ -134,9 +134,9 @@ class AuthController {
   Future<APIResponse<List<RouteDataGetById>>> getTurnByRouteID(
       String routeId) async {
     // get the current and upcoming active turns assigned to the conductor
-    // String url = Constants.SERVER;
-    String url =
-        "https://us-central1-transport-booking-system-62ea6.cloudfunctions.net/app/api";
+    String url = Constants.SERVER;
+    // String url =
+        // "https://us-central1-transport-booking-system-62ea6.cloudfunctions.net/app/api";
     // List<List<RouteDataGetById>> fullRoute = [];
     List<RouteDataGetById> partialRoutes = [];
     print('getTurnbyId');
@@ -158,7 +158,10 @@ class AuthController {
         print('b');
         Map<String, dynamic> data = jsonDecode(response.body);
         print('c');
-        print(data['turns']);
+        print(data['turns']==null);
+        if(data['turns']==null){
+print("null");
+        }else{
         for (var i = 0; i < data["turns"].length; i++) {
           print('d');
           print(data['turns'][i]);
@@ -168,7 +171,7 @@ class AuthController {
 // print (partialRoute);
           // fullRoute.add(partialRoute);
           // partialRoute = [];
-        }
+        }}
         print('f');
         return APIResponse<List<RouteDataGetById>>(data: partialRoutes);
       }
@@ -261,7 +264,7 @@ class AuthController {
 
   Future<APIResponse<List<BusTripData>>> getTurns(String routeId) async {
     // get the details of the passenger who booked a particular seat
-    String url = Constants.SERVER;
+    // String url = Constants.SERVER;
     List<BusTripData> turns = [];
 
     // return http.post(
@@ -293,25 +296,96 @@ class AuthController {
     // }).
     // catchError((error) => APIResponse<List<BusTripData>>(error: true, errorMessage: 'An error occured'));
 
-    BusTripData trip1 = BusTripData(
-        tripId: "rNJngMhzfcJO5qyOjM9I 2020-05-11T07:00:00.000Z",
-        departureTime: "2020-05-11T07:00:00.000Z",
-        startStation: "Colombo",
-        arrivalTime: "2020-05-11T11:00:00.000Z",
-        endStation: "Kandy",
-        normalSeatPrice: 159,
-        busType: "2x2 bus");
+    // BusTripData trip1 = BusTripData(
+    //     tripId: "rNJngMhzfcJO5qyOjM9I 2020-05-11T07:00:00.000Z",
+    //     departureTime: "2020-05-11T07:00:00.000Z",
+    //     startStation: "Colombo",
+    //     arrivalTime: "2020-05-11T11:00:00.000Z",
+    //     endStation: "Kandy",
+    //     normalSeatPrice: 159,
+    //     busType: "2x2 bus");
+    // BusTripData trip2 = BusTripData(
+    //     tripId: "IB5CS5JD7foW57HVUVFo 2020-06-13T07:00:00.750Z",
+    //     departureTime: "2020-06-13T07:00:00.750Z",
+    //     startStation: "Kurunegala",
+    //     arrivalTime: "2020-06-13T10:15:00.750Z",
+    //     endStation: "Colombo",
+    //     normalSeatPrice: 200,
+    //     busType: "3x2 bus");
+    
+
+  BusTripData trip1 = BusTripData(
+      tripId: "rNJngMhzfcJO5qyOjM9I 2020-05-11T07:00:00.000Z",
+      departureTime: "2020-05-11T07:00:00.000Z",
+      startStation: "Colombo",
+      arrivalTime: "2020-05-11T11:00:00.000Z",
+      endStation: "Kandy",
+      normalSeatPrice: 159,
+      busType: "2x2 bus"
+    );
     BusTripData trip2 = BusTripData(
-        tripId: "IB5CS5JD7foW57HVUVFo 2020-06-13T07:00:00.750Z",
-        departureTime: "2020-06-13T07:00:00.750Z",
-        startStation: "Kurunegala",
-        arrivalTime: "2020-06-13T10:15:00.750Z",
-        endStation: "Colombo",
-        normalSeatPrice: 200,
-        busType: "3x2 bus");
-    turns = [trip1, trip2];
+      tripId: "IB5CS5JD7foW57HVUVFo 2020-06-11T07:00:00.750Z",
+      departureTime: "2020-06-11T07:00:00.750Z",
+      startStation: "Kurunegala",
+      arrivalTime: "2020-06-11T10:15:00.750Z",
+      endStation: "Colombo",
+      normalSeatPrice: 200,
+      busType: "3x2 bus"
+    );
+    BusTripData trip3 = BusTripData(
+      tripId: "IB5CS5JD7foW57HVUVFo 2020-06-13T07:00:00.750Z",
+      departureTime: "2020-06-13T07:00:00.750Z",
+      startStation: "Kurunegala",
+      arrivalTime: "2020-06-13T10:15:00.750Z",
+      endStation: "Colombo",
+      normalSeatPrice: 200,
+      busType: "3x2 bus"
+    );
+    BusTripData trip4 = BusTripData(
+      tripId: "IB5CS5JD7foW57HVUVFo 2020-06-14T07:00:00.750Z",
+      departureTime: "2020-06-14T07:00:00.750Z",
+      startStation: "Kurunegala",
+      arrivalTime: "2020-06-14T10:15:00.750Z",
+      endStation: "Colombo",
+      normalSeatPrice: 200,
+      busType: "3x2 bus"
+    );
+    turns = [trip1, trip2, trip3, trip4];
+
+    // turns = [trip1, trip2];
     return APIResponse<List<BusTripData>>(data: turns);
   }
+    
+
+
+
+
+Future<APIResponse<String>> addToWaitingList(String uid, String token, String tripId) async {
+    // sign in the passenger when the email and password is given
+    String url = Constants.SERVER;
+    return http.post(
+      '$url/addtowaiting/$uid',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'turnId': tripId,
+      })
+    ).then ((response) {
+        if(response.statusCode == 200) {
+          Map<String, dynamic> data = jsonDecode(response.body);
+          return APIResponse<String>(data: data['message']); 
+        }
+        if(response.statusCode == 400) {
+          final error = jsonDecode(response.body);
+          return APIResponse<String>(error: true, errorMessage: error['message']);
+        }
+        return APIResponse<String>(error: true, errorMessage: 'An error occured');
+      }).
+      catchError((error) => APIResponse<String> (error: true, errorMessage: 'An error occured')); 
+  }
+
 
   Future<APIResponse<List<BusSeat>>> getBookings(
       String uid, String loginToken, String tripId) async {
