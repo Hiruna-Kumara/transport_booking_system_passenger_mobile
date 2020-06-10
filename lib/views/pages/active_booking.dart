@@ -202,26 +202,7 @@ class ActiveBookingTile extends StatelessWidget {
               ),
               // Text('End Station - ${route.endStation}'),
               Text('${sharedFunctions.formatDateTime(_getDateTime(activeBooking.departureTime))} to ${sharedFunctions.formatDateTime(_getDateTime(activeBooking.arrivalTime))}'),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              // // Text('Departure Time - ${route.departureTime}'),
-              // Text('Departure Time - ' +
-              //     DateUtil().formattedDate(
-              //         DateTime.parse('${route.departureTime}').toLocal()) +
-              //     "  " +
-              //     TimeUtil().formattedDate(
-              //         DateTime.parse('${route.departureTime}').toLocal())),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              // // Text('Arrival Time - ${route.arrivalTime}'),
-              // Text('Arrival Time - ' +
-              //     DateUtil().formattedDate(
-              //         DateTime.parse('${route.arrivalTime}').toLocal()) +
-              //     "  " +
-              //     TimeUtil().formattedDate(
-              //         DateTime.parse('${route.arrivalTime}').toLocal())),
+              
               SizedBox(
                 height: 10,
               ),
@@ -265,33 +246,7 @@ class ActiveBookingTile extends StatelessWidget {
                     onPressed: () {
                       
                     },
-                //     onPressed: () {
-                //       // Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripDetails(uid: uid, token: token, routeId: route.turnId)));
-
-                //       Navigator.of(context).push(MaterialPageRoute(
-                // builder: (context) => BusLayoutWrapper(
-                //   uid: uid, token: token, 
-                //   seatPrice: route.normalSeatPrice, 
-                //   busType: route.busType,
-                //   startingDestination: route.startStation,
-                //   endingDestination: route.endStation,
-                //   // trip: trip,
-                //    trip: BusTripData(
-                //                     tripId: route.turnId,
-                //                     departureTime: route.departureTime,
-                //                     startStation: route.startStation,
-                //                     arrivalTime: route.arrivalTime,
-                //                     endStation: route.endStation,
-                //                     normalSeatPrice:
-                //                         route.normalSeatPrice,
-                //                     busType: route.busType),
-                //                 //seatPrice: widget.seatPrice,
-                                
-                              
-                // )
-                //       ));
-                //       // show turn details
-                //     },
+                
                   ),
                 ],
               ),

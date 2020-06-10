@@ -118,41 +118,118 @@ class PastBookingTile extends StatelessWidget {
   final SharedFunctions sharedFunctions = SharedFunctions();
 
   @override
+  // Widget build(BuildContext context) {
+  //   return Card(
+  //     color: Colors.grey[200],
+  //     margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+  //     child: Column(
+  //       children: <Widget>[
+  //         SizedBox(height: 15.0),
+  //         ListTile(
+  //           title: Text(
+  //             '${pastBooking.busNumber} - ${pastBooking.startStation} to ${pastBooking.endStation}',
+  //           ),
+  //           subtitle: Text(
+  //             '${sharedFunctions.formatDateTime(sharedFunctions.getDateTime(pastBooking.departureTime))} to ${sharedFunctions.formatDateTime(sharedFunctions.getDateTime(pastBooking.arrivalTime))}',
+  //             style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+  //           ),
+  //         ),
+  //         ListTile(
+  //           title: Text(
+  //             'Seat number ${pastBooking.seatId} - LKR ${pastBooking.price}',
+  //             style: TextStyle(fontSize: 20.0),
+  //           ),
+  //         ),
+  //         ListTile(
+  //           title: Text(
+  //             'Conductor contact number',
+  //             style: TextStyle(fontSize: 20.0),
+  //           ),
+  //           subtitle: Text(
+  //             pastBooking.conductorContact,
+  //             style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+  //           ),
+  //         ),
+  //         SizedBox(height: 15.0),
+  //       ],
+  //     ),
+  //   );
+  // }        
+
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey[200],
-      margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: 15.0),
-          ListTile(
-            title: Text(
-              '${pastBooking.busNumber} - ${pastBooking.startStation} to ${pastBooking.endStation}',
-            ),
-            subtitle: Text(
-              '${sharedFunctions.formatDateTime(sharedFunctions.getDateTime(pastBooking.departureTime))} to ${sharedFunctions.formatDateTime(sharedFunctions.getDateTime(pastBooking.arrivalTime))}',
-              style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-            ),
+    print("below ti turn id");
+    // print(route.turnId);
+
+    return SingleChildScrollView(
+      child: Card(
+        color: Colors.grey[200],
+        margin: EdgeInsets.all(15.0),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: <Widget>[
+              // Text('Starting Station - ${route.startStation}'),
+              Text('${pastBooking.busNumber} - ${pastBooking.startStation} to ${pastBooking.endStation}'),
+              SizedBox(
+                height: 15,
+              ),
+              // Text('End Station - ${route.endStation}'),
+              Text('${sharedFunctions.formatDateTime(sharedFunctions.getDateTime(pastBooking.departureTime))} to ${sharedFunctions.formatDateTime(sharedFunctions.getDateTime(pastBooking.arrivalTime))}'),
+              
+              SizedBox(
+                height: 15,
+              ),
+              Text('Seat number ${pastBooking.seatId} - LKR ${pastBooking.price}'),
+              SizedBox(
+                height: 15,
+              ),
+              // Text('Bus Type - ${route.busType}'),
+              
+              // Text(
+              //   'Payment ID - ${activeBooking.paymentId}',
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              Text(
+                'Conductor Contact Number -  '+pastBooking.conductorContact
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              // '${route.turnId}' == null? SizedBox(
+              //   height: 10,
+              // ) 
+              // : 
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: <Widget>[
+              //     SizedBox(
+              //       height: 10,
+              //     ),
+              //     FlatButton(
+              //       child: Text(
+              //         "Cancel Booking",
+              //         style: TextStyle(
+              //           color: Colors.white,
+              //           fontSize: 18.0,
+              //         ),
+              //       ),
+              //       color: Colors.green[700],
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(5)
+              //       ),
+              //       onPressed: () {
+                      
+              //       },
+                
+              //     ),
+              //   ],
+              // ),
+            ],
           ),
-          ListTile(
-            title: Text(
-              'Seat number ${pastBooking.seatId} - LKR ${pastBooking.price}',
-              style: TextStyle(fontSize: 20.0),
-            ),
-          ),
-          ListTile(
-            title: Text(
-              'Conductor contact number',
-              style: TextStyle(fontSize: 20.0),
-            ),
-            subtitle: Text(
-              pastBooking.conductorContact,
-              style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 15.0),
-        ],
+        ),
       ),
     );
-  }             
+  }     
 }

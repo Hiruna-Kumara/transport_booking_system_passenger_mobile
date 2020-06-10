@@ -188,6 +188,7 @@ class PartialRouteDetailTile extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
+                  '${route.status}'!='UNAVAILABLE'?
                   FlatButton(
                     child: Text(
                       "Show Turn Details",
@@ -212,7 +213,9 @@ class PartialRouteDetailTile extends StatelessWidget {
                       ));
                       // show turn details
                     },
-                  ),
+                  ):SizedBox(
+                height: 10,
+              ),
                 ],
               ),
             ],

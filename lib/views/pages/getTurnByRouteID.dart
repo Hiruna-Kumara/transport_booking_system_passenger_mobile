@@ -65,9 +65,6 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
     // _isLoadingLogged:
     _fetchRouteDropdown();
     super.initState();
-    
-    
-    
   }
 
   _fetchRouteDropdown() async {
@@ -92,26 +89,26 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
       dropdownList.add('${dropdownDetails[i].id}');
     }
   }
+
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("token") == null) {
       print("no shared");
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => LoginPage()
-      )); // if user is not logged in navigate to sign in page
+          builder: (context) =>
+              LoginPage())); // if user is not logged in navigate to sign in page
     } else {
       // setState(() {
       //   _isLoadingLogged = true;
       // });
       uid = sharedPreferences.getString("uid");
       token = sharedPreferences.getString("token");
-      print(uid+"   uid in search by route");
+      print(uid + "   uid in search by route");
       // setState(() {
       //   _isLoadingLogged = false;
       // });
     }
   }
-  
 
   void getDropDownItem() {
     setState(() {
@@ -126,12 +123,12 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-    icon: Icon(Icons.arrow_back, color: Colors.white),
-    // onPressed: () => Navigator.of(context).pop(),
-     onPressed: () =>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()))
-  ), 
-  title: PageTitleHomePage(),
-  centerTitle: true,
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            // onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => Home()))),
+        title: PageTitleHomePage(),
+        centerTitle: true,
         backgroundColor: Colors.green[900],
         // title: PageTitleHomePage(),
         actions: <Widget>[
@@ -168,126 +165,106 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
           ),
         ],
       ),
-      body:_isLoading ? Center(child: CircularProgressIndicator()) : SingleChildScrollView(
-      // body: SingleChildScrollView(
-        child: Card(
-          margin: EdgeInsets.all(15.0),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  // TextFormField(
-                  //   decoration: InputDecoration(
-                  //     labelText: "routeId",
-                  //     labelStyle: TextStyle(
-                  //       fontWeight: FontWeight.bold,
-                  //       fontSize: 20,
-                  //     ),
-                  //   ),
-                  //   validator: (val) =>
-                  //       val.isEmpty ? 'Enter starting destination' : null,
-                  //   onChanged: (val) {
-                  //     setState(() => routeId = val);
-                  //   },
-                  // ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  new DropdownButton<String>(
-                    value: dropdownValue,
-                    // items: <String>['${dropdownDetails[0].id}', 'B', 'C', 'D'].map((String value) {
-                    items: dropdownList.map((String value) {
-                      
-                      // items:dropdownList{
-                      return new DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String data) {
-                      setState(() {
-                        dropdownValue = data;
-                      });
-                    },
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  // Container(
-                  //   alignment: Alignment(0, 0),
-                  //   child: TextFormField(
-                  //     decoration: InputDecoration(
-                  //       labelText: "Ending Destination ",
-                  //       labelStyle: TextStyle(
-                  //         fontWeight: FontWeight.bold,
-                  //         fontSize: 20,
-                  //       ),
-                  //     ),
-                  //     validator: (val) =>
-                  //         val.isEmpty ? 'Enter ending destination' : null,
-                  //     onChanged: (val) {
-                  //       // setState(() => endingDestination = val);
-                  //     },
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //   children: <Widget>[
-                  //     RaisedButton(
-                  //       onPressed: () => _selectDate(context),
-                  //       child: Text('Select date'),
-                  //     ),
-                  //     Text("${selectedDate.toLocal()}".split(' ')[0]),
-                  //     SizedBox(
-                  //       height: 20.0,
-                  //     ),
-                  //   ],
-                  // ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      FlatButton(
-                        child: Text(
-                          "Find Buses",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              // body: SingleChildScrollView(
+              child: Card(
+                margin: EdgeInsets.all(15.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        // TextFormField(
+                        //   decoration: InputDecoration(
+                        //     labelText: "routeId",
+                        //     labelStyle: TextStyle(
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: 20,
+                        //     ),
+                        //   ),
+                        //   validator: (val) =>
+                        //       val.isEmpty ? 'Enter starting destination' : null,
+                        //   onChanged: (val) {
+                        //     setState(() => routeId = val);
+                        //   },
+                        // ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Choose Route Number Below",
+                          style: new TextStyle(
+                            fontSize: 20.0,
+                            // color: Colors.yellow,
                           ),
                         ),
-                        color: Colors.green[700],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {
-                          print("below value");
-                          print(dropdownValue);
-                          print("upper value");
-                          if (_formKey.currentState.validate()) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => TripDetailsById(
-                                      // uid: uid,
-                                      // token: token,
-                                      // startingDestination: startingDestination,
-                                      // endingDestination: endingDestination,
-                                      // journeyDate: journeyDate,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        new DropdownButton<String>(
+                          // dropdownColor: Colors.black,
+                          value: dropdownValue,
+                          
+                          // items: <String>['${dropdownDetails[0].id}', 'B', 'C', 'D'].map((String value) {
+                          items: dropdownList.map((String value) {
+                            // items:dropdownList{
+                            return new DropdownMenuItem<String>(
+                              value: value,
+                              child: new Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String data) {
+                            setState(() {
+                              dropdownValue = data;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            FlatButton(
+                              child: Text(
+                                "Find Buses",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                              color: Colors.green[700],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                              onPressed: () {
+                                print("below value");
+                                print(dropdownValue);
+                                print("upper value");
+                                if (_formKey.currentState.validate()) {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => TripDetailsById(
+                                            // uid: uid,
+                                            // token: token,
+                                            // startingDestination: startingDestination,
+                                            // endingDestination: endingDestination,
+                                            // journeyDate: journeyDate,
 
-                                      routeId: dropdownValue,
-                                    )));
-                          }
-                        },
-                      ),
-                    ],
+                                            routeId: dropdownValue,
+                                          )));
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }
