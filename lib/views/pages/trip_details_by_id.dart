@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:transport_booking_system_passenger_mobile/controllers/authController.dart';
 import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
+import 'package:transport_booking_system_passenger_mobile/models/busTripData.dart';
 // import 'package:transport_booking_system_passenger_mobile/models/route.dart';
 import 'package:transport_booking_system_passenger_mobile/models/routeDataGetById.dart';
+import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layout_wrapper.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/trip_details.dart';
 
 class TripDetailsById extends StatefulWidget {
@@ -26,6 +28,8 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
   List<RouteDataGetById> routeDetails;
   bool _isLoading;
   String errorMessage;
+ 
+  
 
   @override
   void initState() {
@@ -60,7 +64,7 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
       appBar: AppBar(
           backgroundColor: Colors.green[900],
           title: Text(
-            'Possible Routes',
+            'Bus Turns',
             style: TextStyle(color: Colors.white),
           )),
       body: _isLoading
@@ -149,8 +153,10 @@ class FullRouteDetailTile extends StatelessWidget {
           physics: ClampingScrollPhysics(),
           itemCount: fullRouteData.length,
           itemBuilder: (context, index) {
+            
             return PartialRouteDetailTile(
                 uid: uid, token: token, route: fullRouteData[index]);
+                
             // return;
           }),
     );
@@ -162,13 +168,17 @@ class PartialRouteDetailTile extends StatelessWidget {
   final String token;
   final RouteDataGetById route;
   PartialRouteDetailTile({this.uid, this.token, this.route});
+  
 
+  
   // final String a='';
 
   final formatter = new DateFormat('yyyy-MM-dd');
   final String formatted = '';
   @override
   Widget build(BuildContext context) {
+    print("below ti turn id");
+    print(route.turnId);
     // String a='${route.departureTime}';
 
     // print (DateUtil().formattedDate(DateTime.parse('${route.departureTime}').toLocal()));
@@ -274,7 +284,7 @@ class PartialRouteDetailTile extends StatelessWidget {
                   ),
                   FlatButton(
                     child: Text(
-                      "Show Turn Details",
+                      "Book Now",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -285,7 +295,30 @@ class PartialRouteDetailTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5)
                     ),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripDetails(uid: uid, token: token, routeId: route.turnId)));
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripDetails(uid: uid, token: token, routeId: route.turnId)));
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BusLayoutWrapper(
+                  uid: uid, token: token, 
+                  seatPrice: route.normalSeatPrice, 
+                  busType: route.busType,
+                  startingDestination: route.startStation,
+                  endingDestination: route.endStation,
+                  // trip: trip,
+                   trip: BusTripData(
+                                    tripId: route.turnId,
+                                    departureTime: route.departureTime,
+                                    startStation: route.startStation,
+                                    arrivalTime: route.arrivalTime,
+                                    endStation: route.endStation,
+                                    normalSeatPrice:
+                                        route.normalSeatPrice,
+                                    busType: route.busType),
+                                //seatPrice: widget.seatPrice,
+                                
+                              
+                )
+                      ));
                       // show turn details
                     },
                   ),
