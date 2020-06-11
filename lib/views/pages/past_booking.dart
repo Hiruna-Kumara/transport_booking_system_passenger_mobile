@@ -181,49 +181,12 @@ class PastBookingTile extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
-              // Text('Bus Type - ${route.busType}'),
-              
-              // Text(
-              //   'Payment ID - ${activeBooking.paymentId}',
-              // ),
-              // SizedBox(
-              //   height: 10,
-              // ),
               Text(
                 'Conductor Contact Number -  '+pastBooking.conductorContact
               ),
               SizedBox(
                 height: 15,
               ),
-              // '${route.turnId}' == null? SizedBox(
-              //   height: 10,
-              // ) 
-              // : 
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     SizedBox(
-              //       height: 10,
-              //     ),
-              //     FlatButton(
-              //       child: Text(
-              //         "Cancel Booking",
-              //         style: TextStyle(
-              //           color: Colors.white,
-              //           fontSize: 18.0,
-              //         ),
-              //       ),
-              //       color: Colors.green[700],
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(5)
-              //       ),
-              //       onPressed: () {
-                      
-              //       },
-                
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),

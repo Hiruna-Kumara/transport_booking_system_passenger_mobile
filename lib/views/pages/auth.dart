@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                                   sharedPreferences.setString("token", _apiResponseLogin.data.token); // cache user data
                                   sharedPreferences.setString("uid", _apiResponseLogin.data.uid); 
                                 });
-                                String message = _apiResponseLogin.data.message;
+                                // String message = _apiResponseLogin.data.message;
                                 // print (message);
                                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home())); // navigate to the home page if the user correctly signs in
                               }

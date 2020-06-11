@@ -139,32 +139,6 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
   }
 }
 
-// class FullRouteDetailTile extends StatelessWidget {
-//   final String uid;
-//   final String token;
-//   final List<RouteDataGetById> fullRouteData;
-//   FullRouteDetailTile({this.uid, this.token, this.fullRouteData});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       color: Colors.grey[400],
-//       margin: EdgeInsets.all(15.0),
-//       child: ListView.builder(
-//           shrinkWrap: true,
-//           physics: ClampingScrollPhysics(),
-//           itemCount: fullRouteData.length,
-//           itemBuilder: (context, index) {
-            
-//             return PartialRouteDetailTile(
-//                 uid: uid, token: token, route: fullRouteData[index]);
-                
-//             // return;
-//           }),
-//     );
-//   }
-// }
-
 class PartialRouteDetailTile extends StatelessWidget {
   final String uid;
   final String token;
@@ -179,13 +153,6 @@ class PartialRouteDetailTile extends StatelessWidget {
   final String formatted = '';
   @override
   Widget build(BuildContext context) {
-    // String a='${route.departureTime}';
-
-    // print (DateUtil().formattedDate(DateTime.parse('${route.departureTime}').toLocal()));
-
-    // var b= DateUtil().formattedDate(DateTime.parse(a));
-    // print (b.hour);
-    // print(a+"  time");
 
     return SingleChildScrollView(
       child: Card(
@@ -210,15 +177,6 @@ class PartialRouteDetailTile extends StatelessWidget {
                   "  " +
                   TimeUtil().formattedDate(
                       DateTime.parse('${route.departureTime}').toLocal())),
-// Text('Departure Time - '+TimeUtil().formattedDate(DateTime.parse('${route.departureTime}').toLocal())),
-              // print (DateUtil().formattedDate(DateTime.parse('${route.departureTime}').toLocal()));
-
-              // var now = new DateTime.now();
-
-              // formatted = formatter.format('${route.departureTime.toString()}');
-              // formatted ="${route.departureTime.toString()}-${today.month.toString().padLeft(2,'0')}-${today.day.toString().padLeft(2,'0')}";
-
-              // print(formatted); // something like 2013-04-20
 
               SizedBox(
                 height: 10,
@@ -241,39 +199,6 @@ class PartialRouteDetailTile extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              // Text('Status - ${route.status}'),
-              // route.routeId == null
-              //     ? SizedBox(
-              //         height: 10,
-              //       )
-              //     : Column(
-              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //         children: <Widget>[
-              //           SizedBox(
-              //             height: 10,
-              //           ),
-              //           FlatButton(
-              //             child: Text(
-              //               "Show Turn Details",
-              //               style: TextStyle(
-              //                 color: Colors.white,
-              //                 fontSize: 18.0,
-              //               ),
-              //             ),
-              //             color: Colors.green[700],
-              //             shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(5)),
-              //             onPressed: () {
-              //               Navigator.of(context).push(MaterialPageRoute(
-              //                   builder: (context) => TripDetails(
-              //                       uid: uid,
-              //                       token: token,
-              //                       routeId: route.routeId)));
-              //               // show turn details
-              //             },
-              //           ),
-              //         ],
-              //       ),
               '${route.turnId}' == null? SizedBox(
                 height: 10,
               ) : Column(

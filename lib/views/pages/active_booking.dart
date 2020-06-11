@@ -123,66 +123,7 @@ class ActiveBookingTile extends StatelessWidget {
     return date;
   }
 
-  @override
-  // Widget build(BuildContext context) {
-  //   return Card(
-  //     color: Colors.grey[200],
-  //     margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
-  //     child: Column(
-  //       children: <Widget>[
-  //         SizedBox(height: 15.0),
-  //         ListTile(
-  //           title: Text(
-  //             '${activeBooking.busNumber} - ${activeBooking.startStation} to ${activeBooking.endStation}',
-  //           ),
-  //           subtitle: Text(
-  //             '${sharedFunctions.formatDateTime(_getDateTime(activeBooking.departureTime))} to ${sharedFunctions.formatDateTime(_getDateTime(activeBooking.arrivalTime))}',
-  //             style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //         ListTile(
-  //           title: Text(
-  //             'Seat number ${activeBooking.seatId} - LKR ${activeBooking.price}',
-  //             style: TextStyle(fontSize: 20.0),
-  //           ),
-  //           subtitle: Text(
-  //             'Payment ID - ${activeBooking.paymentId}',
-  //             style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //         ListTile(
-  //           title: Text(
-  //             'Conductor contact number',
-  //             style: TextStyle(fontSize: 20.0),
-  //           ),
-  //           subtitle: Text(
-  //             activeBooking.conductorContact,
-  //             style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //         FlatButton(
-  //           child: Text(
-  //             'Cancel Booking',
-  //             style: TextStyle(fontSize: 17.0),
-  //           ),
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(5)
-  //           ),
-  //           color: Colors.green[700],
-  //           textColor: Colors.white,
-  //           onPressed: () { 
-  //             // cancel booking
-  //           },
-  //         ),
-  //         SizedBox(height: 15.0),
-  //       ],
-  //     ),
-  //   );
-  // }         
-
-
-
-
+  @override   
   Widget build(BuildContext context) {
 
     return SingleChildScrollView(

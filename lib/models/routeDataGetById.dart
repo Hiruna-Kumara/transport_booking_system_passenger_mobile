@@ -12,13 +12,6 @@ class RouteDataGetById {
 
   factory RouteDataGetById.fromJson(Map<String,dynamic> turns)  {
     return RouteDataGetById(
-      // routeName: route['name'],
-      // shortName: route['short_name'],
-      // departureStop: route['departure_stop'],
-      // arrivalStop: route['arrival_stop'], 
-      // status: route['status'],
-      // // routeId: route['routeId'],
-      // routeId: "1 Colombo Kandy",
       turnId: turns['turnId'],
       departureTime: turns['departureTime'],
       startStation: turns['startStation'],

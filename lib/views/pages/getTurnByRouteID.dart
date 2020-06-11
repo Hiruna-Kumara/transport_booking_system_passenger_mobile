@@ -15,12 +15,6 @@ import 'package:transport_booking_system_passenger_mobile/views/shared_widgets/p
 import 'auth.dart';
 
 class GetTurnByRouteID extends StatefulWidget {
-  // final String uid;
-  // final String token;
-  // final String startingDestination;
-  // final String endingDestination;
-  // final String journeyDate;
-  // RouteDetails({this.uid, this.token, this.startingDestination, this.endingDestination, this.journeyDate});
   GetTurnByRouteID();
 
   @override
@@ -46,18 +40,6 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   String uid;
   String token;
 
-  // Future<Null> _selectDate(BuildContext context) async {
-  //   final DateTime picked = await showDatePicker(
-  //       context: context,
-  //       initialDate: selectedDate,
-  //       firstDate: DateTime(2015, 8),
-  //       lastDate: DateTime(2101));
-  //   if (picked != null && picked != selectedDate)
-  //     setState(() {
-  //       selectedDate = picked;
-  //       journeyDate = selectedDate.toString();
-  //     });
-  // }
 
   @override
   void initState() {
@@ -176,20 +158,6 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
-                        // TextFormField(
-                        //   decoration: InputDecoration(
-                        //     labelText: "routeId",
-                        //     labelStyle: TextStyle(
-                        //       fontWeight: FontWeight.bold,
-                        //       fontSize: 20,
-                        //     ),
-                        //   ),
-                        //   validator: (val) =>
-                        //       val.isEmpty ? 'Enter starting destination' : null,
-                        //   onChanged: (val) {
-                        //     setState(() => routeId = val);
-                        //   },
-                        // ),
                         SizedBox(
                           height: 10,
                         ),

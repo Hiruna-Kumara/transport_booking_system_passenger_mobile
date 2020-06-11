@@ -120,10 +120,11 @@ class _HomeState extends State<Home> {
                       children: <Widget>[
                         
                       Text(
-                        "Enter your Start and Destination here"
+                        "Enter your Start and Destination here",
+                        style: TextStyle(fontSize: 17),
                       ),
                       SizedBox(
-                        height:20
+                        height:5
                       ),
                         TextFormField(
                           decoration: InputDecoration(

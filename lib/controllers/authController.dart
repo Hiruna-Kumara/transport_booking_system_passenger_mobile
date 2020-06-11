@@ -210,44 +210,7 @@ class AuthController {
         return APIResponse<List<RoutesDropdown>>(
             error: true, errorMessage: error['error']);
       }
-            
-
-            // final responseJson = json.decode(response.body);
-
-  // return APIResponse<List<RoutesDropdown>>;z
-            
-        // .then((response) {
-
-      // if (response.statusCode == 200) {
-      //   Map<String, dynamic> data = jsonDecode(response.body);
-      //   for (var i = 0; i < data["turns"].length; i++) {
-      //     partialRoute.add(RouteDataGetById.fromJson(data["turns"][i]));
-
-      //     // fullRoute.add(partialRoute);
-      //     // partialRoute = [];
-      //   }
-      //   return APIResponse<List<RouteDataGetById>>(data: partialRoute);
-      // }
-      // if (response.statusCode == 400) {
-      //   final error = jsonDecode(response.body);
-      //   return APIResponse<List<RouteDataGetById>>(
-      //       error: true, errorMessage: error['error']);
-      // }
-      // if (response.statusCode == 404) {
-      //   final error = jsonDecode(response.body);
-      //   return APIResponse<List<RouteDataGetById>>(
-      //       error: true, errorMessage: error['message']);
-      // }
-      // if (response.statusCode == 422) {
-      //   final error = jsonDecode(response.body);
-      //   return APIResponse<List<RouteDataGetById>>(
-      //       error: true, errorMessage: error['error']);
-      // }
-      // return APIResponse<List<RouteDataGetById>>(
-          // error: true, errorMessage: 'An error occured');
           
-    // }).catchError((error) => APIResponse<List<RouteDataGetById>>(
-    //         error: true, errorMessage: 'An error occured'));
   }
 
   Future<APIResponse<List<BusTripData>>> getTurns(String routeId) async {
@@ -284,23 +247,6 @@ class AuthController {
     // }).
     // catchError((error) => APIResponse<List<BusTripData>>(error: true, errorMessage: 'An error occured'));
 
-    // BusTripData trip1 = BusTripData(
-    //     tripId: "rNJngMhzfcJO5qyOjM9I 2020-05-11T07:00:00.000Z",
-    //     departureTime: "2020-05-11T07:00:00.000Z",
-    //     startStation: "Colombo",
-    //     arrivalTime: "2020-05-11T11:00:00.000Z",
-    //     endStation: "Kandy",
-    //     normalSeatPrice: 159,
-    //     busType: "2x2 bus");
-    // BusTripData trip2 = BusTripData(
-    //     tripId: "IB5CS5JD7foW57HVUVFo 2020-06-13T07:00:00.750Z",
-    //     departureTime: "2020-06-13T07:00:00.750Z",
-    //     startStation: "Kurunegala",
-    //     arrivalTime: "2020-06-13T10:15:00.750Z",
-    //     endStation: "Colombo",
-    //     normalSeatPrice: 200,
-    //     busType: "3x2 bus");
-    
 
   BusTripData trip1 = BusTripData(
       tripId: "rNJngMhzfcJO5qyOjM9I 2020-05-11T07:00:00.000Z",
@@ -338,7 +284,21 @@ class AuthController {
       normalSeatPrice: 200,
       busType: "3x2 bus"
     );
-    turns = [trip1, trip2, trip3, trip4];
+    BusTripData trip5 = BusTripData(
+            tripId: "IB5CS5JD7foW57HVUVFo 2020-06-15T07:00:00.750Z",
+            departureTime: "2020-06-15T07:00:00.750Z",
+            startStation: "Kurunegala",
+            arrivalTime: "2020-06-15T10:15:00.750Z",
+            endStation: "Colombo",
+            normalSeatPrice: 200,
+            busType: "3x2 bus"
+    );
+
+
+    
+
+
+    turns = [trip1, trip2, trip3, trip4,trip5];
 
     // turns = [trip1, trip2];
     return APIResponse<List<BusTripData>>(data: turns);
