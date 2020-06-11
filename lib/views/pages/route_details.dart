@@ -74,6 +74,7 @@ class _RouteDetailsState extends State<RouteDetails> {
                     onPressed: () async {
                       // to load all the route details
                       _fetchRouteDetails();
+                      print("error");
                     },
                   ),
                 ),
@@ -188,7 +189,7 @@ class PartialRouteDetailTile extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  '${route.status}'!='UNAVAILABLE'?
+                  '${route.status}'=='UNAVAILABLE'?
                   FlatButton(
                     child: Text(
                       "Show Turn Details",

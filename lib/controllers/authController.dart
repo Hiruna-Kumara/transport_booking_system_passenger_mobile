@@ -13,6 +13,7 @@ import 'package:transport_booking_system_passenger_mobile/models/busTripData.dar
 import 'package:transport_booking_system_passenger_mobile/models/route.dart';
 
 import 'package:transport_booking_system_passenger_mobile/models/busBookingData.dart';
+// import 'package:http/io_client.dart';
 
 class AuthController {
   Future<APIResponse<String>> registerPassenger(
@@ -45,6 +46,7 @@ class AuthController {
   }
 
   Future<APIResponse<UserData>> signInPassenger(
+      // http.Client client,
       String email, String password) async {
     // sign in the passenger when the email and password is given
     String url = Constants.SERVER;
@@ -110,7 +112,12 @@ class AuthController {
           fullRoute.add(partialRoute);
           partialRoute = [];
         }
+        if (fullRoute.length==0){
+          return APIResponse<List<List<RouteData>>>(
+            error: true, errorMessage: "Please enter a valid town");
+        }else{
         return APIResponse<List<List<RouteData>>>(data: fullRoute);
+        }
       }
       if (response.statusCode == 400) {
         final error = jsonDecode(response.body);
@@ -560,5 +567,5 @@ Future<APIResponse<List<BusBookingData>>> getActiveBookings(String uid, String l
       return APIResponse<List<BusBookingData>>(error: true, errorMessage: 'An error occured');
     });
   }
-  
+
 }

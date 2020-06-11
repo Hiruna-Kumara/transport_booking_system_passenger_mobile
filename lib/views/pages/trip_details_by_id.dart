@@ -6,7 +6,7 @@ import 'package:transport_booking_system_passenger_mobile/models/busTripData.dar
 // import 'package:transport_booking_system_passenger_mobile/models/route.dart';
 import 'package:transport_booking_system_passenger_mobile/models/routeDataGetById.dart';
 import 'package:transport_booking_system_passenger_mobile/views/pages/bus_layout_wrapper.dart';
-import 'package:transport_booking_system_passenger_mobile/views/pages/trip_details.dart';
+// import 'package:transport_booking_system_passenger_mobile/views/pages/trip_details.dart';
 
 class TripDetailsById extends StatefulWidget {
   final String uid;
@@ -59,6 +59,8 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
 
   @override
   Widget build(BuildContext context) {
+    // print("errrrorrr");
+    // print(_apiResponse.error);
     // print(routeDetails.length);
     return Scaffold(
       appBar: AppBar(
@@ -76,6 +78,8 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
                     color: Colors.grey[100],
                     child: Column(
                       children: <Widget>[
+                        
+                        
                         Container(
                           alignment: Alignment.topRight,
                           child: FlatButton.icon(
