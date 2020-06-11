@@ -40,9 +40,9 @@ class _RouteDetailsState extends State<RouteDetails> {
         routeDetails = _apiResponse.data;
       }
     });
-    print (_apiResponse.data);
-    print (_apiResponse.error);
-    print (_apiResponse.errorMessage);
+    // print (_apiResponse.data);
+    // print (_apiResponse.error);
+    // print (_apiResponse.errorMessage);
   }
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _RouteDetailsState extends State<RouteDetails> {
                     onPressed: () async {
                       // to load all the route details
                       _fetchRouteDetails();
-                      print("error");
+                      // print("error");
                     },
                   ),
                 ),

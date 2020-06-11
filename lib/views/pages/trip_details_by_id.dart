@@ -45,16 +45,14 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
     setState(() {
       _isLoading = false;
       if (_apiResponse.error) {
-        print("error   **");
         errorMessage = _apiResponse.errorMessage;
       } else {
         routeDetails = _apiResponse.data;
       }
     });
-    print("*******************get the output");
-    print(_apiResponse.data);
-    print(_apiResponse.error);
-    print(_apiResponse.errorMessage);
+    // print(_apiResponse.data);
+    // print(_apiResponse.error);
+    // print(_apiResponse.errorMessage);
   }
 
   @override
@@ -141,31 +139,31 @@ class _TripDetailsByIdState extends State<TripDetailsById> {
   }
 }
 
-class FullRouteDetailTile extends StatelessWidget {
-  final String uid;
-  final String token;
-  final List<RouteDataGetById> fullRouteData;
-  FullRouteDetailTile({this.uid, this.token, this.fullRouteData});
+// class FullRouteDetailTile extends StatelessWidget {
+//   final String uid;
+//   final String token;
+//   final List<RouteDataGetById> fullRouteData;
+//   FullRouteDetailTile({this.uid, this.token, this.fullRouteData});
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey[400],
-      margin: EdgeInsets.all(15.0),
-      child: ListView.builder(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          itemCount: fullRouteData.length,
-          itemBuilder: (context, index) {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       color: Colors.grey[400],
+//       margin: EdgeInsets.all(15.0),
+//       child: ListView.builder(
+//           shrinkWrap: true,
+//           physics: ClampingScrollPhysics(),
+//           itemCount: fullRouteData.length,
+//           itemBuilder: (context, index) {
             
-            return PartialRouteDetailTile(
-                uid: uid, token: token, route: fullRouteData[index]);
+//             return PartialRouteDetailTile(
+//                 uid: uid, token: token, route: fullRouteData[index]);
                 
-            // return;
-          }),
-    );
-  }
-}
+//             // return;
+//           }),
+//     );
+//   }
+// }
 
 class PartialRouteDetailTile extends StatelessWidget {
   final String uid;
@@ -181,8 +179,6 @@ class PartialRouteDetailTile extends StatelessWidget {
   final String formatted = '';
   @override
   Widget build(BuildContext context) {
-    print("below ti turn id");
-    print(route.turnId);
     // String a='${route.departureTime}';
 
     // print (DateUtil().formattedDate(DateTime.parse('${route.departureTime}').toLocal()));
@@ -339,7 +335,7 @@ class PartialRouteDetailTile extends StatelessWidget {
 class DateUtil {
   static const DATE_FORMAT = 'dd/MM/yyyy';
   String formattedDate(DateTime dateTime) {
-    print('dateTime ($dateTime)');
+    // print('dateTime ($dateTime)');
     return DateFormat(DATE_FORMAT).format(dateTime);
   }
 }
@@ -347,45 +343,8 @@ class DateUtil {
 class TimeUtil {
   static const TIME_FORMAT = 'HH:mm: a';
   String formattedDate(DateTime dateTime) {
-    print('dateTime ($dateTime)');
+    // print('dateTime ($dateTime)');
     return DateFormat(TIME_FORMAT).format(dateTime);
   }
 }
 
-// class RoutesDropdownDisplay extends State<TripDetailsById> {
-//   final AuthController _auth = AuthController();
-//   APIResponse<List<RouteDataGetById>> _apiResponse;
-//   List<RouteDataGetById> routeDetails;
-//   bool _isLoading;
-//   String errorMessage;
-
-//   void initState() {
-//     _fetchTurnDetailsByRoute();
-//     super.initState();
-//   }
-
-//   _fetchTurnDetailsByRoute() async {
-//     setState(() {
-//       _isLoading = true;
-//     });
-//     _apiResponse = await _auth.getTurnByRouteID(widget.routeId);
-//     setState(() {
-//       _isLoading = false;
-//       if (_apiResponse.error) {
-//         errorMessage = _apiResponse.errorMessage;
-//       } else {
-//         routeDetails = _apiResponse.data;
-//       }
-//     });
-//     print("*******************get the output");
-//     print(_apiResponse.data);
-//     print(_apiResponse.error);
-//     print(_apiResponse.errorMessage);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     throw UnimplementedError();
-//   }
-// }

@@ -59,9 +59,9 @@ class PaypalPaymentState extends State<PaypalPayment> {
       } else {
         _isLoading = false; 
         currencyConvertFactor = _apiResponse.data;
-        print ('currencyConvertFactor - $currencyConvertFactor');
+        // print ('currencyConvertFactor - $currencyConvertFactor');
         priceInUSD = widget.totalPrice * currencyConvertFactor;
-        print ('priceInUSD - $priceInUSD');
+        // print ('priceInUSD - $priceInUSD');
         stringValue = priceInUSD.toStringAsFixed(2); 
         priceInUSD2Decimals = double.parse(stringValue);
   
@@ -86,7 +86,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
           });
         }
       } catch (e) {
-        print('exception: '+e.toString());
+        // print('exception: '+e.toString());
         final snackBar = SnackBar(
           content: Text(e.toString()),
           duration: Duration(seconds: 10),
@@ -132,7 +132,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
   @override
   Widget build(BuildContext context) {
-    print(checkoutUrl);
+    // print(checkoutUrl);
     if (checkoutUrl != null) {
       return _isLoading? Center(child: CircularProgressIndicator()) : Scaffold(
         appBar: AppBar(
@@ -152,8 +152,8 @@ class PaypalPaymentState extends State<PaypalPayment> {
               final uri = Uri.parse(request.url);
               final payerID = uri.queryParameters['PayerID'];
               final paymentID = uri.queryParameters['paymentId'];
-              print(uri);
-              print ('return  $returnURL');
+              // print(uri);
+              // print ('return  $returnURL');
               
               if (payerID != null) {
                 services
@@ -180,7 +180,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
               );
             }
             if (request.url.contains(cancelURL)) {
-              print ('cancel  $cancelURL');
+              // print ('cancel  $cancelURL');
               Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => PaymentFailurePage())

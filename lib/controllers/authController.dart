@@ -47,10 +47,10 @@ class AuthController {
 
   Future<APIResponse<UserData>> signInPassenger(
       // http.Client client,
-      String email, String password) async {
+     http.Client client, String email, String password) async {
     // sign in the passenger when the email and password is given
     String url = Constants.SERVER;
-    return http
+    return client
         .post('$url/signin',
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
@@ -63,10 +63,10 @@ class AuthController {
         Map<String, dynamic> data = jsonDecode(response.body);
         // convert the response to a custom user object
         if (UserData.fromJson(data).role == "PASSENGER") {
-          print(UserData.fromJson(data).uid);
-          print(UserData.fromJson(data).phoneNumber);
-          print(UserData.fromJson(data).role);
-          print(UserData.fromJson(data).token);
+          // print(UserData.fromJson(data).uid);
+          // print(UserData.fromJson(data).phoneNumber);
+          // print(UserData.fromJson(data).role);
+          // print(UserData.fromJson(data).token);
           return APIResponse<UserData>(data: UserData.fromJson(data));
         } else {
           return APIResponse<UserData>(
@@ -89,8 +89,6 @@ class AuthController {
     String url = Constants.SERVER;
     List<List<RouteData>> fullRoute = [];
     List<RouteData> partialRoute = [];
-    print('dateee');
-    print(date);
     return http
         .post('$url/getroute',
             headers: <String, String>{
@@ -106,7 +104,6 @@ class AuthController {
         Map<String, dynamic> data = jsonDecode(response.body);
         for (var i = 0; i < data["routes"]["steps"].length; i++) {
           for (var j = 0; j < data["routes"]["steps"][i].length; j++) {
-            print (data["routes"]["steps"][i][j]);
             partialRoute.add(RouteData.fromJson(data["routes"]["steps"][i][j]));
           }
           fullRoute.add(partialRoute);
@@ -148,8 +145,6 @@ class AuthController {
         // "https://us-central1-transport-booking-system-62ea6.cloudfunctions.net/app/api";
     // List<List<RouteDataGetById>> fullRoute = [];
     List<RouteDataGetById> partialRoutes = [];
-    print('getTurnbyId');
-    // print (date);
     return http
         .post('$url/getturnbyroute',
             headers: <String, String>{
@@ -162,29 +157,15 @@ class AuthController {
               'routeId': routeId,
             }))
         .then((response) {
-          print("a");
       if (response.statusCode == 200) {
-        print('b');
         Map<String, dynamic> data = jsonDecode(response.body);
-        print('c');
-        print(data['turns']==null);
         if(data['turns']==null){
-print("null");
         }else{
         for (var i = 0; i < data["turns"].length; i++) {
-          print('d');
-          print(data['turns'][i]);
           partialRoutes.add(RouteDataGetById.fromJson(data['turns'][i]));
-          print('e');
-          // print("printing partial");
-// print (partialRoute);
-          // fullRoute.add(partialRoute);
-          // partialRoute = [];
         }}
-        print('f');
         return APIResponse<List<RouteDataGetById>>(data: partialRoutes);
       }
-      print('200 passed');
       if (response.statusCode == 400) {
         final error = jsonDecode(response.body);
         return APIResponse<List<RouteDataGetById>>(
@@ -213,8 +194,6 @@ print("null");
         "https://us-central1-transport-booking-system-62ea6.cloudfunctions.net/app/api";
     // List<List<RouteDataGetById>> fullRoute = [];
     List<RoutesDropdown> partialRoute = [];
-    print('getTurnbyId');
-    // print (date);
     final response= await http.get('$url/getallroutes',headers: {HttpHeaders.authorizationHeader: "Basic your_api_token_here"},);
             
      if (response.statusCode == 200) {
@@ -415,16 +394,12 @@ Future<APIResponse<String>> addToWaitingList(String uid, String token, String tr
               
             }))
         .then((response) {
-          print("11");
       if (response.statusCode == 200) {
-        print("1");
         Map<String, dynamic> data = jsonDecode(response.body);
         for (var i = 0; i < data["seats"].length; i++) {
-          print("2");
           seatBookings.add(BusSeat.fromJson(data["seats"][i]));
         }
         for (var i = 0; i < seatBookings.length; i++) {
-          print("3");
           for (var j = 0; j < seatBookings.length; j++) {
             if (int.parse(seatBookings[j].seatID) == i + 1) {
               orderedSeatBookings.add(seatBookings[j]);
@@ -435,12 +410,10 @@ Future<APIResponse<String>> addToWaitingList(String uid, String token, String tr
         return APIResponse<List<BusSeat>>(data: orderedSeatBookings);
       }
       if (response.statusCode == 400) {
-        print("4");
         final error = jsonDecode(response.body);
         return APIResponse<List<BusSeat>>(
             error: true, errorMessage: error['error']);
       }
-      print("5");
       return APIResponse<List<BusSeat>>(
           error: true, errorMessage: 'An error occured 1');
     }).catchError((error) => APIResponse<List<BusSeat>>(
@@ -493,7 +466,6 @@ Future<APIResponse<String>> addToWaitingList(String uid, String token, String tr
   String url = "https://free.currconv.com/api/v7/convert?q=LKR_USD&compact=ultra&apiKey=737ec7e1568aac2e1bd5";
     return http.get('$url')
       .then ((response) {
-        print ('heloo');
         if(response.statusCode == 200) {
           Map<String, dynamic> data = jsonDecode(response.body);
           return APIResponse<double>(data: data['LKR_USD']);

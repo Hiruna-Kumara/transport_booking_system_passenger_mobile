@@ -1,3 +1,4 @@
+import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:transport_booking_system_passenger_mobile/models/apiResponse.dart';
 import 'package:transport_booking_system_passenger_mobile/models/userData.dart';
@@ -13,7 +14,7 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-enum AuthMode { LOGIN, SIGNUP, PassengerUI }
+enum AuthMode { LOGIN, SIGNUP}
 
 class _LoginPageState extends State<LoginPage> {
 
@@ -136,7 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                               setState(() {
                                 _isLoading = true;
                               });
-                              _apiResponseLogin = await _auth.signInPassenger(email,password); // if form is valid sign in the user
+                              IOClient client = IOClient();
+                              _apiResponseLogin = await _auth.signInPassenger(client,email,password); // if form is valid sign in the user
                               SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
                               setState(() {
                                 _isLoading = false;
@@ -145,14 +147,14 @@ class _LoginPageState extends State<LoginPage> {
                                 setState(() {
                                   errorMessage = _apiResponseLogin.errorMessage;
                                 });
-                                print(errorMessage);
+                                // print(errorMessage);
                               } else {
                                 setState(() {
                                   sharedPreferences.setString("token", _apiResponseLogin.data.token); // cache user data
                                   sharedPreferences.setString("uid", _apiResponseLogin.data.uid); 
                                 });
                                 String message = _apiResponseLogin.data.message;
-                                print (message);
+                                // print (message);
                                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home())); // navigate to the home page if the user correctly signs in
                               }
                             }
@@ -345,7 +347,7 @@ class _LoginPageState extends State<LoginPage> {
                                 setState(() {
                                   errorMessage = _apiResponseRegister.errorMessage;
                                 });
-                                print(errorMessage);
+                                // print(errorMessage);
                                 showAlertDialog(
                                   context,
                                   errorMessage,
@@ -353,7 +355,7 @@ class _LoginPageState extends State<LoginPage> {
                                 );
                               } else {
                                 String message = _apiResponseRegister.data;
-                                print (message);
+                                // print (message);
                                 errorMessage=" ";
                                 showAlertDialog(
                                   context,

@@ -38,15 +38,6 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
 
   APIResponse<String> _apiResponse2;
 
-  // countAvailableSeats() {
-  //   for(var i=0; i<busSeatDetails.length;i++){
-  //     if (busSeatDetails[i].booking == null) {
-  //       availableSeats = availableSeats + 1;
-  //       print("available seats");
-  //       print(availableSeats);
-  //     }
-  //   }
-  // }
   countAvailableSeats() {
     for(var i=0; i<busSeatDetails.length;i++){
       if (busSeatDetails[i].status == "Available") {
@@ -74,17 +65,16 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
   _fetchSeatDetails() async {
     setState(() { _isLoading = true; });
     // get seat details of the particular trip
-    print("12");
+    // print(widget.uid);
+    // print(widget.token);
+    // print(widget.trip.tripId);
     _apiResponse = await _auth.getBookings(widget.uid, widget.token, widget.trip.tripId);
-    print(widget.trip.tripId);
-    print("13");
+    // print(widget.trip.tripId);
     setState(() { 
       if (_apiResponse.error){
-        print("13");
         _isLoading = false; 
         errorMessage = _apiResponse.errorMessage;
       } else {
-        print("14");
         _isLoading = false; 
         busSeatDetails = _apiResponse.data;
         countAvailableSeats();
@@ -262,33 +252,6 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
                 ),
               ),
             ),
-            // show 'add to waiting list' only if all the seats are not available
-            // availableSeats > 0 ? SizedBox(height: 20) : Expanded(
-            //   flex: 1,
-            //   child: Container(
-            //     width: double.infinity,
-            //     margin: EdgeInsets.all(10.0),
-            //     child: Center(
-            //       child: FlatButton(
-            //         child: Text(
-            //           "Add To Waiting List",
-            //           style: TextStyle(
-            //             color: Colors.white,
-            //             fontSize: 18.0,
-            //           ),
-            //         ),
-            //         color: Colors.green[900],
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(5)
-            //         ),
-            //         onPressed: () {
-            //           print (availableSeats);
-            //           // Navigate to 'add to waiting list' page
-            //         },
-            //       ),
-            //     )
-            //   ),
-            // ),
 
             availableSeats > 0 ? SizedBox(height: 20) : Expanded(
               flex: 1,
@@ -309,7 +272,7 @@ class _BusLayoutWrapperState extends State<BusLayoutWrapper> {
                       borderRadius: BorderRadius.circular(5)
                     ),
                     onPressed: () async {
-                      print (availableSeats);
+                      // print (availableSeats);
                       _apiResponse2 = await _auth.addToWaitingList(widget.uid, widget.token, widget.trip.tripId);
                       final result = await showDialog(
                         context: context,

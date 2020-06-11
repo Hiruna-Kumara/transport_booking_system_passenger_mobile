@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
       });
       uid = sharedPreferences.getString("uid");
       token = sharedPreferences.getString("token");
-      print(uid);
+      // print(uid);
       setState(() {
         _isLoading = false;
       });
@@ -118,6 +118,13 @@ class _HomeState extends State<Home> {
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
+                        
+                      Text(
+                        "Enter your Start and Destination here"
+                      ),
+                      SizedBox(
+                        height:20
+                      ),
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: "Starting Destination",

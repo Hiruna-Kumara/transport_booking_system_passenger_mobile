@@ -34,7 +34,7 @@ class _SingleBusSeatState extends State<SingleBusSeat> {
           borderRadius: BorderRadius.circular(5)
         ),
         onPressed: () async {
-          print (widget.count);
+          // print (widget.count);
           if (widget.busSeatDetails[widget.index].status == "Unavailable") {
             final result = await showDialog(
               context: context,

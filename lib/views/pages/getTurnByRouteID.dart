@@ -80,11 +80,11 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
         dropdownDetails = _apiResponse.data;
       }
     });
-    print('success dropdown');
-    print(_apiResponse.data);
-    print(_apiResponse.error);
-    print(_apiResponse.errorMessage);
-    print('${dropdownDetails[0].id}');
+    // print('success dropdown');
+    // print(_apiResponse.data);
+    // print(_apiResponse.error);
+    // print(_apiResponse.errorMessage);
+    // print('${dropdownDetails[0].id}');
     for (var i = 0; i < dropdownDetails.length; i++) {
       dropdownList.add('${dropdownDetails[i].id}');
     }
@@ -93,7 +93,6 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("token") == null) {
-      print("no shared");
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) =>
               LoginPage())); // if user is not logged in navigate to sign in page
@@ -103,7 +102,7 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
       // });
       uid = sharedPreferences.getString("uid");
       token = sharedPreferences.getString("token");
-      print(uid + "   uid in search by route");
+      // print(uid + "   uid in search by route");
       // setState(() {
       //   _isLoadingLogged = false;
       // });
@@ -240,14 +239,11 @@ class _GetTurnByRouteIDState extends State<GetTurnByRouteID> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5)),
                               onPressed: () {
-                                print("below value");
-                                print(dropdownValue);
-                                print("upper value");
                                 if (_formKey.currentState.validate()) {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => TripDetailsById(
-                                            // uid: uid,
-                                            // token: token,
+                                            uid: uid,
+                                            token: token,
                                             // startingDestination: startingDestination,
                                             // endingDestination: endingDestination,
                                             // journeyDate: journeyDate,
